@@ -30,31 +30,9 @@ class Room:
         self.wall_list = None
         self.textura = None
 
-
-def setup_pueblo():
+def setup_nivel(nivel):
     """
-    Crea la habitación del pueblo
-    """
-    room = Room()
-
-    # Lista de Sprites
-    room.wall_list = arcade.SpriteList()
-    room.textura = arcade.SpriteList()
-
-    map = arcade.tilemap.read_tmx("resources" + os.path.sep + "maps" + os.path.sep + "nivel0.tmx")
-
-    carga = arcade.process_layer(map, "Nivel", 1)
-    wall = arcade.process_layer(map, "Muros Invisibles", 1)
-
-    room.textura = carga
-    room.wall_list = wall
-
-    return room
-
-
-def setup_room_1():
-    """
-    Crea la habitacion 1.
+    Crea una room
     """
     room = Room()
 
@@ -62,28 +40,7 @@ def setup_room_1():
     room.wall_list = arcade.SpriteList()
     room.textura = arcade.SpriteList()
 
-    map = arcade.tilemap.read_tmx("resources" + os.path.sep + "maps" + os.path.sep + "nivel1.tmx")
-
-    carga = arcade.process_layer(map, "Nivel", 1)
-    wall = arcade.process_layer(map, "Muros Invisibles", 1)
-
-    room.textura = carga
-    room.wall_list = wall
-
-    return room
-
-
-def setup_combate():
-    """
-    Create la habitación donde ocurriran los combates
-    """
-    room = Room()
-
-    # Lista de Sprites
-    room.wall_list = arcade.SpriteList()
-    room.textura = arcade.SpriteList()
-
-    map = arcade.tilemap.read_tmx("resources" + os.path.sep + "maps" + os.path.sep + "combate.tmx")
+    map = arcade.tilemap.read_tmx("resources" + os.path.sep + "maps" + os.path.sep + nivel +".tmx")
 
     carga = arcade.process_layer(map, "Nivel", 1)
     wall = arcade.process_layer(map, "Muros Invisibles", 1)
@@ -236,12 +193,25 @@ class MyGame(arcade.Window):
         self.current_room = 0
         self.rooms = []
 
-        room = setup_pueblo()
+        room = setup_nivel("nivel0")
         self.rooms.append(room)
-        room = setup_room_1()
+        room = setup_nivel("nivel1")
         self.rooms.append(room)
-        room = setup_combate()
+        room = setup_nivel("nivel2")
         self.rooms.append(room)
+        room = setup_nivel("nivel3")
+        self.rooms.append(room)
+        room = setup_nivel("nivel4")
+        self.rooms.append(room)
+        room = setup_nivel("nivel5")
+        self.rooms.append(room)
+        room = setup_nivel("nivel6")
+        self.rooms.append(room)
+        room = setup_nivel("nivel7")
+        self.rooms.append(room)
+        room = setup_nivel("combate")
+        self.rooms.append(room)
+
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
 
         ###################Registro de fakemon################################
@@ -277,14 +247,22 @@ class MyGame(arcade.Window):
         if (self.current_room == 0 and self.player_sprite.center_x == 471 and self.player_sprite.center_y == 681.5):
             self.genera_texto("cuadrocentro.png")
         if (self.current_room == 0 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5):
+            # Dibuja el cuadro de texto
             self.genera_texto("cuadrotienda.png")
+            # Dibuja la cantidad de Pociones que posee el jugador
+
+            arcade.draw_text("Cantidad:"+str(self.jugador.inventario["Pocion"]), 350,
+                             150, arcade.color.BLACK)
+            #Dibuja la cantidad de Cuerdas huida que posee el jugador
+            arcade.draw_text("Cantidad:"+str(self.jugador.inventario["Cuerda Huida"]), 800,
+                             150, arcade.color.BLACK)
         if (self.current_room == 0 and (self.player_sprite.center_x >= 271 and self.player_sprite.center_x <= 283) and self.player_sprite.center_y == 393.5):
             self.genera_texto("cuadrositiocerrado.png")
         if (self.current_room == 0 and (self.player_sprite.center_x >= 73 and self.player_sprite.center_x <= 97) and self.player_sprite.center_y == 585.5):
             self.genera_texto("cuadrositiocerrado.png")
 
         #Sistema de texto dinamico para combates fakemon
-        if (self.current_room == 2):
+        if (self.current_room == 9):
             arcade.draw_text(self.current_ally.nombre+"                                        "+str(self.current_ally.nivel), 534, 253, arcade.color.BLACK, 12)
             arcade.draw_text(str(self.current_ally.HP)+"/"+str(self.current_ally.HP_MAX)+"                                        "+self.current_ally.tipo, 534, 223, arcade.color.BLACK, 12)
             arcade.draw_text(self.current_enemy.nombre +"                                        "+ str(self.current_enemy.nivel) , 300, 530, arcade.color.BLACK, 12)
@@ -313,7 +291,7 @@ class MyGame(arcade.Window):
             self.set_viewport(0, width, 0, height)
 
         # ERROR
-        if (self.current_room == 2 ):
+        if (self.current_room == 9 ):
             if key == arcade.key.KEY_1:
                 Combate.atacar(self.current_ally,self.current_enemy)
                 print("HP enemigo:"+  str(self.current_enemy.HP))
@@ -373,19 +351,19 @@ class MyGame(arcade.Window):
                         print(str(self.has_ganado))
                         print(str(self.has_perdido))
 
-
-
-
-        # ERROR Falta meter los mensajes para cuando no hay dinero y se ha comprado un producto
-        if (self.tienda == True):
-            if key == arcade.key.KEY_1 and self.jugador.dinero <50 :
+        if (self.current_room == 0 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5):
+            if key == arcade.key.KEY_1 and self.jugador.dinero >50 :
+                print("Comprado Pocion")
                 self.jugador.restar_dinero(50)
                 self.jugador.inventario["Pocion"] += 1
-            if key == arcade.key.KEY_2 and self.jugador.dinero <50:
-                self.jugador.restar_dinero(50)
-                self.jugador.inventario["Cuerda huida"] += 1
+                print(str(self.jugador.inventario["Pocion"]))
+            if key == arcade.key.KEY_2 and self.jugador.dinero >100:
+                print("Comprado Cuerda Huida")
+                self.jugador.restar_dinero(100)
+                self.jugador.inventario['Cuerda Huida'] += 1
+                print(str(self.jugador.inventario['Cuerda Huida']))
 
-        if key == arcade.key.Q and self.current_room != 0 and self.jugador.inventario["Cuerda Huida"] != 0:
+        if key == arcade.key.Q and self.current_room != 0 and self.jugador.inventario["Cuerda Huida"] != 0 and self.current_room != 9:
             self.cuerda_huida = True
 
     def on_key_release(self, key, modifiers):
@@ -435,29 +413,59 @@ class MyGame(arcade.Window):
 
 
          # Sistema para comprobar el mayor de los pisos y cambiar al piso donde se encontraba el jugador cuando sale de la torre
-        if (self.current_room > self.top_rooom and self.current_room != 10):
+        if (self.current_room > self.top_rooom and self.current_room != 9):
             self.top_rooom = self.current_room
 
 
-        # Carga el piso donde se encontraba el jugador por ultima vez
-        if (self.current_room == 0 and (self.player_sprite.center_x >= 841 and self.player_sprite.center_x <= 855) == 843 and self.player_sprite.center_y == 137.5):
+        # Carga el piso donde se encontraba el jugador por ultima vez       pueblo--> top_room
+        if (self.current_room == 0 and ( 841<= self.player_sprite.center_x  <= 855) and self.player_sprite.center_y == 137.5):
             self.current_room = self.top_rooom
             self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                              self.rooms[self.current_room].wall_list)
-            self.player_sprite.center_x = 165
-            self.player_sprite.center_y = 465
+            if(self.top_rooom == 1):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 2):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 3):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 4):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 5):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 6):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 7):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 8):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
 
-        # Carga el piso del pueblo al salir del primer piso
-        if (self.current_room == 1 and self.player_sprite.center_x == 169 and self.player_sprite.center_y == 470.5):
+
+        # Carga el piso del pueblo al salir de la torre
+        if (self.player_sprite.center_x == 183 and self.player_sprite.center_y == 438.5):
             self.current_room = 0
             self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                              self.rooms[self.current_room].wall_list)
             self.player_sprite.center_x = 840
             self.player_sprite.center_y = 120
 
+        if ((873<= self.player_sprite.center_x <= 887) and self.player_sprite.center_y == 457.5):
+            self.current_room += 1
+            self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                             self.rooms[self.current_room].wall_list)
+            self.player_sprite.center_x = 137
+            self.player_sprite.center_y = 438.5
+
         # Prueba combate
-        if (self.current_room == 1 and self.player_sprite.center_x == 873 and self.player_sprite.center_y == 425.5):
-            self.current_room = 2
+        if (self.current_room == 8 and self.player_sprite.center_x == 873 and self.player_sprite.center_y == 425.5):
+            self.current_room = 9
             self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                              self.rooms[self.current_room].wall_list)
             self.player_sprite.center_x = 300
@@ -477,9 +485,7 @@ class MyGame(arcade.Window):
             self.player_sprite.center_x = 70
             self.player_sprite.center_y = 537.5
 
-        #Sistema de tiendas
-        if (self.current_room == 0 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5):
-            self.tienda = True
+
 
         # Sistema para restaurar HP de todos los fakemon
         if (self.current_room == 0 and self.player_sprite.center_x == 471 and self.player_sprite.center_y == 681.5):
