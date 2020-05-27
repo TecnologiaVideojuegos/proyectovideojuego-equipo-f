@@ -275,3 +275,43 @@ def checkeo(jugador, aliado, enemigo):
 
         return False, True
 
+
+
+def checkeo_e(jugador, aliado, enemigo):
+
+    if aliado.HP > 0 and enemigo.lista_equipo[0].HP > 0:
+
+        # El combate continua
+        return False, False
+
+    elif aliado.HP < 0:
+
+        jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
+        jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
+
+        # Intentar cambiar pokemon
+        if len(jugador.lista_equipo) != 0:
+
+            return False, False
+
+        else:
+
+            # Pierde el combate, volver al inicio
+            # Volver a la habitacion inicial
+            return True, False
+
+    elif enemigo.lista_equipo[0].HP < 0:  # El fakemon enemigo esta muerto
+
+        enemigo.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
+        enemigo.lista_equipo.pop(0)  # Retirar del equipo de aliado
+
+        # Comprobamos si quedan mas enemigos
+        if len(enemigo.lista_equipo) != 0:
+
+            return False, False
+
+        # Si no quedan mas
+        else:
+
+            # Gana el combate
+            return False, True
