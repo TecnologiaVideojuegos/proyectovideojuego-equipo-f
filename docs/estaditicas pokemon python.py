@@ -31,15 +31,24 @@ def exp(exp_actual,lvl_aliado,lvl_enemigo):
 
     return exp_actual
 
+def numeroRandom (lim_inf,lim_sup):
+    #funcion para crear un random entero entre dos valores 
+    num = random.randint(lim_inf,lim_sup)
+
+    return num
+    
 #estos valores son provisionales
 lvl_maximo = 40     #el level maximo que se puede alcanzar
 lvl_aliado = 6      #este level se tiene que ir comprobando a en cada momento, este es un valor ejemplo
 lvl_enemigo = 4     #este level se tiene que ir comprobando a en cada momento, este es un valor ejemplo
 exp_actual = 0      #exp en cada momento del pokemon
 exp_final = 50      #exp que se puede conseguir en cada nivel
-vida = 22           #vida inicial
-ataque = 9          #ataque inicial
-defensa = 4         #defensa inicial
+
+#valores estadisticas bases (lvl 1)
+vida = numeroRandom(20,25) #random 20-25 vida inicial
+ataque = numeroRandom(8,10) #random 8-10 ataque inicial
+defensa = numeroRandom(3,4) #random 3-4 defensa inicial
+
 i = 0
 for i in range (9):
     #bucle para comprobar como se veran las stats de nivel 1-10
