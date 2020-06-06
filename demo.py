@@ -7,6 +7,7 @@ import Objeto_Entrenador
 import Objeto_Pokemon
 from tests import Combate
 from tests.Generar_Fakemon import nuevo_salvaje
+from tests.Optimizar import habitaciones, texturas_jugador
 
 WIDTH = 800
 HEIGHT = 600
@@ -19,40 +20,7 @@ VIEWPORT_MARGIN_BOTTOM = 60
 VIEWPORT_RIGHT_MARGIN = 270
 VIEWPORT_LEFT_MARGIN = 270
 
-MOVEMENT_SPEED = 4
-
-
-# La clase room es aquella clase que crea los escenarios donde se desplaza el jugador
-class Room:
-    """
-    Esta clase crea y caga las distintas habitaciones del juego
-    """
-
-    def __init__(self):
-        self.wall_list = None
-        self.textura = None
-
-
-def setup_nivel(nivel):
-    """
-    Crea una room
-    """
-    room = Room()
-
-    # Lista de Sprites
-    room.wall_list = arcade.SpriteList()
-    room.textura = arcade.SpriteList()
-
-    map = arcade.tilemap.read_tmx("resources" + os.path.sep + "maps" + os.path.sep + nivel + ".tmx")
-
-    carga = arcade.process_layer(map, "Nivel", 1)
-    wall = arcade.process_layer(map, "Muros Invisibles", 1)
-
-    room.textura = carga
-    room.wall_list = wall
-
-    return room
-
+MOVEMENT_SPEED = 2
 
 # Juego
 class MyGame(arcade.Window):
@@ -90,144 +58,55 @@ class MyGame(arcade.Window):
         self.is_salvaje = False
         self.has_perdido = False
         self.has_ganado = False
+
+        #ERROR falta añadir la activación de los booleanos en el combate , recibir los cuadros de texto correcto,  poner las posiciones correctas de los textos.
+        self.ally_ataque = False
+        self.enemy_ataque = False
+        self.pocion = False
+        self.cambio = False
+        self.huida = False
+
         self.current_trainer = ""
+        self.current_enemy = ""
+        self.current_ally = ""
+
+        self.contador_combate = 120
+        self.contador_mensaje = 180
 
     def setup(self):
         """ Set up the game and initialize the variables. """
         # Set up the player
         self.player_list = arcade.SpriteList()
         self.player_sprite = arcade.AnimatedWalkingSprite()
-
-        self.player_sprite.stand_right_textures = []
-        self.player_sprite.stand_right_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der0.png"))
-
-        self.player_sprite.stand_left_textures = []
-        self.player_sprite.stand_left_textures.append(
-            arcade.load_texture("resources/sprites/player/Izquierda/Izq0.png"))
-
-        # Cargamos las texturas para el movimiento derecho
-        self.player_sprite.walk_right_textures = []
-        self.player_sprite.walk_right_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der1.png"))
-        self.player_sprite.walk_right_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der2.png"))
-        self.player_sprite.walk_right_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der3.png"))
-        self.player_sprite.walk_right_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der4.png"))
-        self.player_sprite.walk_right_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der5.png"))
-        self.player_sprite.walk_right_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der6.png"))
-        self.player_sprite.walk_right_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der7.png"))
-        self.player_sprite.walk_right_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der8.png"))
-
-        # Cargamos las texturas para el movimiento  izquierdo
-        self.player_sprite.walk_left_textures = []
-        self.player_sprite.walk_left_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Izquierda" + os.path.sep + "Izq1.png"))
-        self.player_sprite.walk_left_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Izquierda" + os.path.sep + "Izq2.png"))
-        self.player_sprite.walk_left_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Izquierda" + os.path.sep + "Izq3.png"))
-        self.player_sprite.walk_left_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Izquierda" + os.path.sep + "Izq4.png"))
-        self.player_sprite.walk_left_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Izquierda" + os.path.sep + "Izq5.png"))
-        self.player_sprite.walk_left_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Izquierda" + os.path.sep + "Izq6.png"))
-        self.player_sprite.walk_left_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Izquierda" + os.path.sep + "Izq7.png"))
-        self.player_sprite.walk_left_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Izquierda" + os.path.sep + "Izq8.png"))
-
-        # Cargamos las texturas para el movimiento abajo
-        self.player_sprite.walk_down_textures = []
-        self.player_sprite.walk_down_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Abajo" + os.path.sep + "Abj0.png"))
-        self.player_sprite.walk_down_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Abajo" + os.path.sep + "Abj1.png"))
-        self.player_sprite.walk_down_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Abajo" + os.path.sep + "Abj2.png"))
-        self.player_sprite.walk_down_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Abajo" + os.path.sep + "Abj3.png"))
-        self.player_sprite.walk_down_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Abajo" + os.path.sep + "Abj4.png"))
-        self.player_sprite.walk_down_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Abajo" + os.path.sep + "Abj5.png"))
-        self.player_sprite.walk_down_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Abajo" + os.path.sep + "Abj6.png"))
-        self.player_sprite.walk_down_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Abajo" + os.path.sep + "Abj7.png"))
-        self.player_sprite.walk_down_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Abajo" + os.path.sep + "Abj8.png"))
-
-        # Cargamos las texturas para el movimiento de arriba
-        self.player_sprite.walk_up_textures = []
-        self.player_sprite.walk_up_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba" + os.path.sep + "Arr0.png"))
-        self.player_sprite.walk_up_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba" + os.path.sep + "Arr1.png"))
-        self.player_sprite.walk_up_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba" + os.path.sep + "Arr2.png"))
-        self.player_sprite.walk_up_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba/Arr3.png"))
-        self.player_sprite.walk_up_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba" + os.path.sep + "Arr4.png"))
-        self.player_sprite.walk_up_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba" + os.path.sep + "Arr5.png"))
-        self.player_sprite.walk_up_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba" + os.path.sep + "Arr6.png"))
-        self.player_sprite.walk_up_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba" + os.path.sep + "Arr7.png"))
-        self.player_sprite.walk_up_textures.append(arcade.load_texture(
-            "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba" + os.path.sep + "Arr8.png"))
+        #Establecemos las animaciones de los sprites
+        self.player_sprite.stand_right_textures,\
+        self.player_sprite.stand_left_textures,\
+        self.player_sprite.walk_right_textures,\
+        self.player_sprite.walk_left_textures,\
+        self.player_sprite.walk_down_textures,\
+        self.player_sprite.walk_up_textures = texturas_jugador()
 
         # Posición de inicio del jugador
-        self.player_sprite.center_x = 85
-        self.player_sprite.center_y = 537.5
+        self.player_sprite.center_x = 62
+        self.player_sprite.center_y = 100
 
         self.player_list.append(self.player_sprite)
 
         # Sistema de habitaciones
-        self.top_rooom = 1
+        self.top_rooom = 4
         self.current_room = 0
-        self.rooms = []
-
-        room = setup_nivel("nivel0")
-        self.rooms.append(room)
-        room = setup_nivel("nivel1")
-        self.rooms.append(room)
-        room = setup_nivel("nivel2")
-        self.rooms.append(room)
-        room = setup_nivel("nivel3")
-        self.rooms.append(room)
-        room = setup_nivel("nivel4")
-        self.rooms.append(room)
-        room = setup_nivel("nivel5")
-        self.rooms.append(room)
-        room = setup_nivel("nivel6")
-        self.rooms.append(room)
-        room = setup_nivel("nivel7")
-        self.rooms.append(room)
-        room = setup_nivel("combate")
-        self.rooms.append(room)
-
+        self.rooms = habitaciones()
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
 
         ###################Registro de fakemon################################
         prueba1 = Objeto_Pokemon.Fakemon("prueba1", "estelar", 30, 20, 200, 100, 100, "")
-        prueba2 = Objeto_Pokemon.Fakemon("prueba2", "estelar", 30, 20, 200, 200, 200, "")
 
         ###################Registro de entrenadores################################
         self.jugador = Objeto_Entrenador.Entrenador("jugador")
         self.jugador.lista_equipo.append(prueba1)
 
         # Establecemos dos variables globales para el combate
-        self.current_enemy = prueba2
+        self.current_enemy = ""
         self.current_ally = self.jugador.lista_equipo[0]
 
     # Sistema para generar  texto :Esta funcion recibe el texto dentro de los sprites y dibuja en un cuadro
@@ -245,9 +124,9 @@ class MyGame(arcade.Window):
         self.player_list.draw()
 
         # Cuadros de texto correspondientes al pueblo
-        if (self.current_room == 0 and self.player_sprite.center_x == 471 and self.player_sprite.center_y == 681.5):
+        if (self.current_room == 3 and self.player_sprite.center_x == 471 and self.player_sprite.center_y == 681.5):
             self.genera_texto("cuadrocentro.png")
-        if (self.current_room == 0 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5):
+        if (self.current_room == 3 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5):
             # Dibuja el cuadro de texto
             self.genera_texto("cuadrotienda.png")
             # Dibuja la cantidad de Pociones que posee el jugador
@@ -258,25 +137,77 @@ class MyGame(arcade.Window):
             arcade.draw_text("Cantidad:" + str(self.jugador.inventario["Cuerda Huida"]), 800,
                              150, arcade.color.BLACK)
 
-        if (self.current_room == 0 and (
+        if (self.current_room == 3 and (
                 self.player_sprite.center_x >= 271 and self.player_sprite.center_x <= 283) and self.player_sprite.center_y == 393.5):
             self.genera_texto("cuadrositiocerrado.png")
-        if (self.current_room == 0 and (
+
+        if (self.current_room == 3 and (
                 self.player_sprite.center_x >= 73 and self.player_sprite.center_x <= 97) and self.player_sprite.center_y == 585.5):
             self.genera_texto("cuadrositiocerrado.png")
 
         # Sistema de texto dinamico para combates fakemon
-        if (self.current_room == 8):
-            arcade.draw_text(self.current_ally.nombre + " " + str(self.current_ally.nivel), 534, 253,
+        if (self.current_room == 12):
+            arcade.draw_text(self.current_ally.nombre + "                    " + str(self.current_ally.nivel), 534, 253,
                              arcade.color.BLACK, 12)
             arcade.draw_text(
-                str(self.current_ally.HP) + "/" + str(self.current_ally.HP_MAX) + " " + self.current_ally.tipo, 534,
+                str(self.current_ally.HP) + "/" + str(self.current_ally.HP_MAX) + "                    " + self.current_ally.tipo, 534,
                 223, arcade.color.BLACK, 12)
-            arcade.draw_text(self.current_enemy.nombre + " " + str(self.current_enemy.nivel), 300, 530,
+            arcade.draw_text(self.current_enemy.nombre + "                    " + str(self.current_enemy.nivel), 300, 530,
                              arcade.color.BLACK, 12)
             arcade.draw_text(
-                str(self.current_enemy.HP) + "/" + str(self.current_enemy.HP_MAX) + " " + self.current_enemy.tipo, 300,
+                str(self.current_enemy.HP) + "/" + str(self.current_enemy.HP_MAX) + "                    " + self.current_enemy.tipo, 300,
                 510, arcade.color.BLACK, 12)
+
+            if(self.ally_ataque):
+                self.genera_texto("ally_ataque.png")
+                arcade.draw_text(self.current_ally.nombre,300, 530, arcade.color.BLACK, 12)
+                arcade.draw_text(self.current_enemy.nombre, 300, 530, arcade.color.BLACK, 12)
+                arcade.draw_text(str(Combate.atacar(self.current_ally, self.current_enemy)), 300, 530, arcade.color.BLACK, 12)
+                arcade.draw_text(Combate.atacar_mensaje(self.current_ally, self.current_enemy), 300, 530,arcade.color.BLACK, 12)
+                if(self.contador_mensaje == 0):
+                    self.ally_ataque = False
+                    self.contador_mensaje = 180
+                else: self.contador_mensaje -=1
+
+            elif(self.enemy_ataque):
+                self.genera_texto("enemy_ataque.png")
+                arcade.draw_text(self.current_enemy.nombre, 300, 530, arcade.color.BLACK, 12)
+                arcade.draw_text(self.current_ally.nombre, 300, 530, arcade.color.BLACK, 12)
+                arcade.draw_text(str(Combate.atacar(self.current_enemy,self.current_ally)), 300, 530, arcade.color.BLACK, 12)
+                arcade.draw_text(Combate.atacar_mensaje(self.current_enemy, self.current_ally), 300, 530,arcade.color.BLACK, 12)
+                if(self.contador_mensaje == 0):
+                    self.enemy_ataque = False
+                    self.contador_mensaje = 180
+                else: self.contador_mensaje -=1
+
+            elif(self.pocion):
+                self.genera_texto("pocion.png")
+                arcade.draw_text(self.current_ally.nombre, 300, 530, arcade.color.BLACK, 12)
+                arcade.draw_text(str(int(self.current_ally.HP * 0.5)), 300, 530, arcade.color.BLACK, 12)
+                arcade.draw_text(self.jugador.inventario['Pocion'], 300, 530, arcade.color.BLACK, 12)
+                if(self.contador_mensaje == 0):
+                    self.pocion = False
+                    self.contador_mensaje = 180
+                else: self.contador_mensaje -=1
+
+            elif(self.cambio):
+                self.genera_texto("cambio.png")
+                arcade.draw_text(self.current_ally.nombre, 300, 530, arcade.color.BLACK, 12)
+                arcade.draw_text(self.jugador.lista_equipo[1].nombre, 300, 530, arcade.color.BLACK, 12)
+                if(self.contador_mensaje == 0):
+                    self.cambio = False
+                    self.contador_mensaje = 180
+                else: self.contador_mensaje -=1
+
+            elif(self.huida):
+                self.genera_texto("huida.png")
+                if(self.contador_mensaje == 0):
+                    self.huida = False
+                    self.contador_mensaje = 180
+                else: self.contador_mensaje -=1
+
+
+
 
         # Mapa de coordenadas utilizado para saber la dirección
         arcade.draw_text("Coordenada x:" + str(self.player_sprite.center_x), self.player_sprite.center_x + 10,
@@ -284,8 +215,11 @@ class MyGame(arcade.Window):
         arcade.draw_text("Coordenada y:" + str(self.player_sprite.center_y), self.player_sprite.center_x + 10,
                          self.player_sprite.center_y - 10, arcade.color.WHITE)
 
+
+
+
     def on_key_press(self, key, modifiers):
-        # Sistema de movimientpo
+        # Sistema de movimiento
         if key == arcade.key.W:
             self.player_sprite.change_y = MOVEMENT_SPEED
         if key == arcade.key.A:
@@ -301,7 +235,7 @@ class MyGame(arcade.Window):
             width, height = self.get_size()
             self.set_viewport(0, width, 0, height)
 
-        if (self.current_room == 8):
+        if (self.current_room == 12):
 
             # Combate contra enemigo salvaje
 
@@ -313,8 +247,6 @@ class MyGame(arcade.Window):
                     print("HP aliado:" + str(self.current_ally.HP))
                     self.has_perdido, self.has_ganado = Combate.checkeo(self.jugador, self.current_ally,
                                                                         self.current_enemy)
-                    print(str(self.has_ganado))
-                    print(str(self.has_perdido))
 
                     # Turno enemigo
                     Combate.atacar(self.current_enemy, self.current_ally)
@@ -322,8 +254,8 @@ class MyGame(arcade.Window):
                     print("HP aliado:" + str(self.current_ally.HP))
                     self.has_perdido, self.has_ganado = Combate.checkeo(self.jugador, self.current_ally,
                                                                         self.current_enemy)
-                    print(str(self.has_ganado))
-                    print(str(self.has_perdido))
+
+
 
                 if key == arcade.key.KEY_2:
                     if (self.jugador.inventario["Pocion"] > 0 and self.current_ally.HP < self.current_ally.HP_MAX):
@@ -439,7 +371,7 @@ class MyGame(arcade.Window):
                             print(str(self.has_perdido))
 
         # Sistema de tiendas
-        if (self.current_room == 0 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5):
+        if (self.current_room == 3 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5):
             if key == arcade.key.KEY_1 and self.jugador.dinero > 50:
                 print("Comprado Pocion")
                 self.jugador.restar_dinero(50)
@@ -450,9 +382,10 @@ class MyGame(arcade.Window):
                 self.jugador.restar_dinero(100)
                 self.jugador.inventario['Cuerda Huida'] += 1
                 print(str(self.jugador.inventario['Cuerda Huida']))
+
         # Sistema de cuerda huida entre plantas
-        if key == arcade.key.Q and self.current_room != 0 and self.jugador.inventario[
-            "Cuerda Huida"] != 0 and self.current_room != 8:
+        if key == arcade.key.Q and self.current_room != 3 and self.jugador.inventario[
+            "Cuerda Huida"] != 0 and self.current_room != 12:
             print("Quedan ", self.jugador.inventrario["Cuerda Huida"], " en tu inventario")
             self.cuerda_huida = True
 
@@ -500,7 +433,7 @@ class MyGame(arcade.Window):
                 fakemon_muerto.HP = fakemon_muerto.HP_MAX
                 self.jugador.lista_equipo.append(fakemon_muerto)
 
-            self.current_room = 0
+            self.current_room = 3
             self.player_sprite.center_x = 840
             self.player_sprite.center_y = 120
             self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
@@ -511,25 +444,27 @@ class MyGame(arcade.Window):
             self.is_salvaje = False
 
         # Sistema para comprobar el mayor de los pisos y cambiar al piso donde se encontraba el jugador cuando sale de la torre
-        if (self.current_room > self.top_rooom and self.current_room != 8):
+        if (self.current_room > self.top_rooom and self.current_room != 12):
             self.top_rooom = self.current_room
 
+        #Carga el piso desde el titulo del juego hasta la planta 3
+        if(self.current_room <= 3 and 1140 <= self.player_sprite.center_x <= 1143 and 54.5<= self.player_sprite.center_y <= 74):
+            self.current_room += 1
+            self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,self.rooms[self.current_room].wall_list)
+            if (self.current_room == 3):
+                self.player_sprite.center_x = 81
+                self.player_sprite.center_y = 529.5
+            else:
+                self.player_sprite.center_x = 62
+                self.player_sprite.center_y = 100
+
         # Carga el piso donde se encontraba el jugador por ultima vez       pueblo--> top_room
-        if (self.current_room == 0 and (
+        if (self.current_room == 3 and (
                 841 <= self.player_sprite.center_x <= 855) and self.player_sprite.center_y == 137.5):
             self.current_room = self.top_rooom
             self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                              self.rooms[self.current_room].wall_list)
-            if (self.top_rooom == 1):
-                self.player_sprite.center_x = 137
-                self.player_sprite.center_y = 438.5
-            elif (self.top_rooom == 2):
-                self.player_sprite.center_x = 137
-                self.player_sprite.center_y = 438.5
-            elif (self.top_rooom == 3):
-                self.player_sprite.center_x = 137
-                self.player_sprite.center_y = 438.5
-            elif (self.top_rooom == 4):
+            if (self.top_rooom == 4):
                 self.player_sprite.center_x = 137
                 self.player_sprite.center_y = 438.5
             elif (self.top_rooom == 5):
@@ -544,10 +479,19 @@ class MyGame(arcade.Window):
             elif (self.top_rooom == 8):
                 self.player_sprite.center_x = 137
                 self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 9):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 10):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
+            elif (self.top_rooom == 11):
+                self.player_sprite.center_x = 137
+                self.player_sprite.center_y = 438.5
 
         # Carga el piso del pueblo al salir de la torre
         if (self.player_sprite.center_x == 183 and self.player_sprite.center_y == 438.5):
-            self.current_room = 0
+            self.current_room = 3
             self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                              self.rooms[self.current_room].wall_list)
             self.player_sprite.center_x = 840
@@ -560,41 +504,39 @@ class MyGame(arcade.Window):
             self.player_sprite.center_x = 137
             self.player_sprite.center_y = 438.5
 
-        # Prueba combate
-        if (self.current_room == 7 and self.player_sprite.center_x == 873 and self.player_sprite.center_y == 425.5):
-            self.current_room = 8
-            self.player_sprite.center_x = 500
-            self.player_sprite.center_y = 80
-            self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
-                                                             self.rooms[self.current_room].wall_list)
 
         # Sistema para generar fakemon salvajes dependiendo del piso donde se encuentre
-        if (self.current_room != 0 and self.current_room != 8):
-            if (self.player_sprite.change_x >= MOVEMENT_SPEED or self.player_sprite.center_y >= MOVEMENT_SPEED):
-                empieza_combate = random.randint(0, 1000)
-                print(empieza_combate)
-                if empieza_combate >= 950:
-                    print("Ha aparecido un fakemon salvaje")
-                    self.current_enemy = nuevo_salvaje(self.current_room)
-                    self.is_salvaje = True
-                    self.current_room = 8
-                    self.player_sprite.center_x = 500
-                    self.player_sprite.center_y = 80
-                    self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
-                                                                     self.rooms[self.current_room].wall_list)
+        if (self.current_room != 3 and self.current_room != 12 and self.current_room != 0 and self.current_room != 1 and self.current_room != 2 and self.current_room != 11):
+            if (self.player_sprite.change_x == MOVEMENT_SPEED or self.player_sprite.change_y == MOVEMENT_SPEED or self.player_sprite.change_x == -MOVEMENT_SPEED or self.player_sprite.change_y == -MOVEMENT_SPEED ):
+                if(self.contador_combate == 0):
+                    empieza_combate = random.randint(0, 500)
+                    print(empieza_combate)
+                    self.contador_combate = 120
+                    if empieza_combate >= 450:
+                        print("Ha aparecido un fakemon salvaje")
+                        self.current_enemy = nuevo_salvaje(self.current_room)
+                        self.is_salvaje = True
+                        self.current_room = 12
+                        self.player_sprite.center_x = 500
+                        self.player_sprite.center_y = 80
+                        self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                                         self.rooms[self.current_room].wall_list)
+                else: self.contador_combate -= 60
+
+
 
         # Sistema para regresar al pueblo con cuerda huida
         if (self.cuerda_huida):
             self.jugador.inventario["Cuerda Huida"] -= 1
             self.cuerda_huida = False
-            self.current_room = 0
+            self.current_room = 3
             self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                              self.rooms[self.current_room].wall_list)
             self.player_sprite.center_x = 70
             self.player_sprite.center_y = 537.5
 
         # Sistema para restaurar HP de todos los fakemon
-        if (self.current_room == 0 and self.player_sprite.center_x == 471 and self.player_sprite.center_y == 681.5):
+        if (self.current_room == 3 and self.player_sprite.center_x == 471 and self.player_sprite.center_y == 681.5):
             for fakemon_muerto in self.jugador.lista_muertos:
                 self.jugador.lista_equipo.append(fakemon_muerto)
             for fakemon in self.jugador.lista_equipo:

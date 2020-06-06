@@ -53,9 +53,10 @@ def nuevo_salvaje(room):
     HP_MAX = random.randint(20,25)  # random 20-25 vida inicial
     ataque = random.randint(8, 10)  # random 8-10 ataque inicial
     defensa = random.randint(3, 4)  # random 3-4 defensa inicial
-    if (room == 1):
+    # nivel1
+    if (room == 4):
         lista_fakemon1 = {"":"", "":"","":""}
-        nombre = random.choice(lista_fakemon1)
+        nombre = random.choice(list(lista_fakemon1.keys()))
         tipo = lista_fakemon1[nombre]
         nivel = random.randint(1, 6)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
@@ -64,10 +65,10 @@ def nuevo_salvaje(room):
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
         return fakemon
-
-    elif (room == 2):
+    # nivel2
+    elif (room == 5):
         lista_fakemon2 = {"":"", "":"","":""}
-        nombre = random.choice(lista_fakemon2)
+        nombre = random.choice(list(lista_fakemon2.keys()))
         tipo = lista_fakemon2[nombre]
         nivel = random.randint(6, 12)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
@@ -76,10 +77,10 @@ def nuevo_salvaje(room):
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
         return fakemon
-
-    elif (room == 3):
+    # nivel3
+    elif (room == 6):
         lista_fakemon3 = {"":"", "":"","":""}
-        nombre = random.choice(lista_fakemon3)
+        nombre = random.choice(list(lista_fakemon3.keys()))
         tipo = lista_fakemon3[nombre]
         nivel = random.randint(12, 18)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
@@ -88,10 +89,10 @@ def nuevo_salvaje(room):
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
         return fakemon
-
-    elif (room == 4):
+    # nivel4
+    elif (room == 7):
         lista_fakemon4 = {"":"", "":"","":""}
-        nombre = random.choice(lista_fakemon4)
+        nombre = random.choice(list(lista_fakemon4.keys()))
         tipo = lista_fakemon4[nombre]
         nivel = random.randint(18, 24)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
@@ -100,10 +101,10 @@ def nuevo_salvaje(room):
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
         return fakemon
-
-    elif (room == 5):
+    # nivel5
+    elif (room == 8):
         lista_fakemon5 = {"":"", "":"","":""}
-        nombre = random.choice(lista_fakemon5)
+        nombre = random.choice(list(lista_fakemon5.keys()))
         tipo = lista_fakemon5[nombre]
         nivel = random.randint(24, 30)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
@@ -112,10 +113,10 @@ def nuevo_salvaje(room):
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
         return fakemon
-
-    elif (room == 6):
+    # nivel6
+    elif (room == 9):
         lista_fakemon6 = {"":"", "":"","":""}
-        nombre = random.choice(lista_fakemon6)
+        nombre = random.choice(list(lista_fakemon6.keys()))
         tipo = lista_fakemon6[nombre]
         nivel = random.randint(30, 36)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
@@ -124,10 +125,10 @@ def nuevo_salvaje(room):
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
         return fakemon
-
-    elif (room == 7):
+    #nivel7
+    elif (room == 10):
         lista_fakemon7 = {"":"", "":"","":""}
-        nombre = random.choice(lista_fakemon7)
+        nombre = random.choice(list(lista_fakemon7.keys()))
         tipo = lista_fakemon7[nombre]
         nivel = random.randint(36, 40)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
