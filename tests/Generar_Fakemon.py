@@ -60,7 +60,7 @@ def nuevo_salvaje(room):
         tipo = lista_fakemon1[nombre]
         nivel = random.randint(1, 6)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
-        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "\enemy" + diccionario_fakemon[nombre]
+        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + diccionario_fakemon[nombre]
 
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
