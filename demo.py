@@ -139,6 +139,9 @@ class MyGame(arcade.Window):
             # Dibuja la cantidad de Cuerdas huida que posee el jugador
             arcade.draw_text("Cantidad:" + str(self.jugador.inventario["Cuerda Huida"]), 800,
                              150, arcade.color.BLACK)
+            # Dibuja la cantidad de dinero que tiene un jugador
+            arcade.draw_text("Dinero:" + str(self.jugador.dinero), 600,
+                             150, arcade.color.BLACK)
 
         if (self.current_room == 3 and (
                 self.player_sprite.center_x >= 271 and self.player_sprite.center_x <= 283) and self.player_sprite.center_y == 393.5):
@@ -153,13 +156,17 @@ class MyGame(arcade.Window):
             arcade.draw_text(self.current_ally.nombre + "                    " + str(self.current_ally.nivel), 534, 253,
                              arcade.color.BLACK, 12)
             arcade.draw_text(
-                str(self.current_ally.HP) + "/" + str(self.current_ally.HP_MAX) + "                    " + self.current_ally.tipo, 534,
+                str(self.current_ally.HP) + "/" + str(self.current_ally.HP_MAX) + "                    " + self.current_ally.tipo+ "                    " +str(self.current_ally.contador_exp) + "/" + str(self.current_ally.exp_final), 534,
                 223, arcade.color.BLACK, 12)
+
             arcade.draw_text(self.current_enemy.nombre + "                    " + str(self.current_enemy.nivel), 300, 530,
                              arcade.color.BLACK, 12)
             arcade.draw_text(
                 str(self.current_enemy.HP) + "/" + str(self.current_enemy.HP_MAX) + "                    " + self.current_enemy.tipo, 300,
                 510, arcade.color.BLACK, 12)
+            #ERROR aun no implementado
+            #arcade.draw_lrwh_rectangle_textured(300,200,50,50,self.current_ally.imagen)
+            #arcade.draw_lrwh_rectangle_textured(500, 500, 50, 50, self.current_enemy.imagen)
 
             if(self.ally_ataque):
                 self.genera_texto("ally_ataque.png")
