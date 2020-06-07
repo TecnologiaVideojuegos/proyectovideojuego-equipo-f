@@ -1,0 +1,32 @@
+
+
+
+							# # # # #CREAR COMBATES ENTRENADORES# # # # #
+
+
+
+arcade.get_distance(x1, y1, x2, y2)  --> Get distance between two points
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+arcade.get_distance_between_sprites (sprite1, sprite2)  --> Returns distance between the center
+							    of two given sprites
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
+arcade.has_line_of_sight(point_1: Union[Tuple[float, float], List[float]], point_2: Union[Tuple[float, float], List[float]], walls: arcade.SpriteList, max_distance: int = - 1, check_resolution: int = 2)
+
+Determine if we have line of sight between two points. Try to make sure that spatial hashing is enabled on the wall SpriteList or this will be very slow.
+
+Parameters:
+
+ * point_1 (Point) – Start position
+
+ * point_2 (Point) – End position position
+
+ * walls (SpriteList) – List of all blocking sprites
+
+ * max_distance (int) – Max distance point 1 can see
+
+ * check_resolution (int) – Check every x pixels for a sprite. Trade-off between accuracy and speed.
