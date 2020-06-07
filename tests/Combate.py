@@ -463,8 +463,7 @@ def exp(exp_actual, lvl_aliado, lvl_enemigo):
             exp_actual = exp_actual + 13
 
         return exp_actual
-
-        
+    
 def checkeo(jugador, aliado, enemigo):
 
     if aliado.HP > 0 and enemigo.HP > 0:
@@ -472,7 +471,7 @@ def checkeo(jugador, aliado, enemigo):
         #El combate continua
         return False, False
 
-    elif aliado.HP < 0:
+    elif aliado.HP <= 0:
 
         jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
@@ -483,13 +482,12 @@ def checkeo(jugador, aliado, enemigo):
             return False, False
 
         else:
-
             #Pierde el combate, volver al inicio
             # Volver a la habitacion inicial
             return True, False
 
 
-    elif enemigo.HP < 0:
+    elif enemigo.HP <= 0:
 
         #Gana el combate, ganar experienci y volver a la sala
         jugador.lista_equipo[0].contador_exp = exp(jugador.lista_equipo[0].contador_exp,
@@ -501,7 +499,6 @@ def checkeo(jugador, aliado, enemigo):
         return False, True
 
 
-
 def checkeo_e(jugador, aliado, enemigo):
 
     if aliado.HP > 0 and enemigo.lista_equipo[0].HP > 0:
@@ -509,7 +506,7 @@ def checkeo_e(jugador, aliado, enemigo):
         # El combate continua
         return False, False
 
-    elif aliado.HP < 0:
+    elif aliado.HP <= 0:
 
         jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
@@ -525,7 +522,7 @@ def checkeo_e(jugador, aliado, enemigo):
             # Volver a la habitacion inicial
             return True, False
 
-    elif enemigo.lista_equipo[0].HP < 0:  # El fakemon enemigo esta muerto
+    elif enemigo.lista_equipo[0].HP <= 0:  # El fakemon enemigo esta muerto
 
         enemigo.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         enemigo.lista_equipo.pop(0)  # Retirar del equipo de aliado
