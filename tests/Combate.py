@@ -463,76 +463,105 @@ def exp(exp_actual, lvl_aliado, lvl_enemigo):
 
         return exp_actual
     
-def checkeo(jugador, aliado, enemigo):
+def checkeo(jugador, enemigo):
 
+    aliado = jugador.lista_equipo[0]
+
+    #Los dos tienen vida
     if aliado.HP > 0 and enemigo.HP > 0:
 
         #El combate continua
-        return False, False
+        return False, False, aliado
 
+    #El aliado no tiene vida
     elif aliado.HP <= 0:
 
+        #El fakemon muere
         jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
 
-        #Intentar cambiar pokemon
+        #Si hay mas fakemon
         if len(jugador.lista_equipo) != 0:
 
-            return False, False
+            #El combate continua
+            return False, False, jugador.lista_equipo[0] #El enemigo sigue siendo el mismo, pero el aliado cambia al primero de la lista
 
+        #Si no quedan mas pokemon
         else:
+
             #Pierde el combate, volver al inicio
-            # Volver a la habitacion inicial
-            return True, False
+            print ("Pierdes el combate")
+            return True, False, " " #El enemigo y el aliado desaparecen
 
-
+    #El enemigo ha muerto
     elif enemigo.HP <= 0:
 
-        #Gana el combate, ganar experienci y volver a la sala
-        jugador.lista_equipo[0].contador_exp = exp(jugador.lista_equipo[0].contador_exp,
-                                                      jugador.lista_equipo[0].nivel, enemigo.nivel)
-        if(jugador.lista_equipo[0].contador_exp>jugador.lista_equipo[0].exp_final):
-            jugador.lista_equipo[0]. subir_nivel()
+        #Gana el combate
+        #Suma experiencia
+        jugador.lista_equipo[0].contador_exp = exp(jugador.lista_equipo[0].contador_exp, jugador.lista_equipo[0].nivel,
+                                                   enemigo.nivel)
+
+        #Ganas el combate
+        print ("Ganas el combate")
+        return False, True, aliado #El enemigo desaparece y el aliado continua siendo el mismo
 
 
-        return False, True
 
 
-def checkeo_e(jugador, aliado, enemigo):
 
-    if aliado.HP > 0 and enemigo.lista_equipo[0].HP > 0:
+def checkeo_e(jugador, entrenador):
+
+    aliado = jugador.lista_equipo[0]
+    enemigo = entrenador.lista_equipo[0]
+
+    #Los dos tiene vida
+    if aliado.HP > 0 and enemigo.HP > 0:
 
         # El combate continua
-        return False, False
+        return False, False, aliado, entrenador
 
+    #El aliado muere
     elif aliado.HP <= 0:
 
         jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
 
-        # Intentar cambiar pokemon
+        #Si quedan mas aliados
         if len(jugador.lista_equipo) != 0:
 
-            return False, False
+            #El combate continua
+            return False, False, jugador.lista_equipo[0], entrenador #El enemigo se mantiene y el aliado pasa a ser el primero en la lista
 
+        #No quedan mas aliados
         else:
 
             # Pierde el combate, volver al inicio
-            # Volver a la habitacion inicial
-            return True, False
+            print ("Pierdes el combate")
+            return True, False, " ", entrenador #El aliado y el entrenador se mantiene para curar a los fakemons
 
-    elif enemigo.lista_equipo[0].HP <= 0:  # El fakemon enemigo esta muerto
+    #El fakemon enemigo esta muerto
+    elif enemigo.lista_equipo[0].HP <= 0:
 
-        enemigo.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
-        enemigo.lista_equipo.pop(0)  # Retirar del equipo de aliado
+        entrenador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
+        entrenador.lista_equipo.pop(0)  # Retirar del equipo de aliado
 
-        # Comprobamos si quedan mas enemigos
-        if len(enemigo.lista_equipo) != 0:
+        # Suma experiencia
+        jugador.lista_equipo[0].contador_exp = exp(jugador.lista_equipo[0].contador_exp, jugador.lista_equipo[0].nivel,
+                                                   enemigo.nivel)
 
-            return False, False
+        if jugador.lista_equipo[0].contador_exp > jugador.lista_equipo[0].exp_final:
+            jugador.lista_equipo[0].subir_nivel()
 
-        # Si no quedan mas
+
+        #Si quedan mas enemigos
+        if len(entrenador.lista_equipo) != 0:
+
+            #El combate continua
+            return False, False, aliado, entrenador #El aliado se mantiene y el enemigo pasa a ser el primero de la lista
+
+        # Si no quedan mas enemigos
         else:
 
             # Gana el combate
-            return False, True
+            print ("Ganas el comabte")
+            return False, True, aliado, entrenador #El aliado se mantiene y el entrenador desaparecen
