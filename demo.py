@@ -60,7 +60,6 @@ class MyGame(arcade.Window):
         self.has_perdido = False
         self.has_ganado = False
 
-        #ERROR falta añadir la activación de los booleanos en el combate , recibir los cuadros de texto correcto,  poner las posiciones correctas de los textos.
         self.ally_ataque = False
         self.enemy_ataque = False
         self.pocion = False
@@ -164,10 +163,13 @@ class MyGame(arcade.Window):
             arcade.draw_text(
                 str(self.current_enemy.HP) + "/" + str(self.current_enemy.HP_MAX) + "                    " + self.current_enemy.tipo, 300,
                 510, arcade.color.BLACK, 12)
-            #ERROR aun no implementado
-            #arcade.draw_lrwh_rectangle_textured(300,200,50,50,self.current_ally.imagen)
-            #arcade.draw_lrwh_rectangle_textured(500, 500, 50, 50, self.current_enemy.imagen)
 
+
+            #Cargamos las imagenes de los fakemon
+            arcade.draw_lrwh_rectangle_textured(120,85, 300,300,arcade.load_texture(self.current_ally.imagen))
+            arcade.draw_lrwh_rectangle_textured(730, 370, 250, 250,arcade.load_texture(self.current_enemy.imagen))
+
+            #Cargamos los distintos tipos de mensajes que pueden aparecer en el combate
             if(self.ally_ataque):
                 self.genera_texto("ally_ataque.png")
                 arcade.draw_text(self.current_ally.nombre,300, 530, arcade.color.BLACK, 12)
@@ -450,7 +452,30 @@ class MyGame(arcade.Window):
                 self.player_sprite.center_x = self.x_victoria
                 self.player_sprite.center_y = self.y_victoria
                 self.is_salvaje = False
-            #Error falta colocar la posicion de victoria contra entrenadores
+            #ERROR FALTA POR DEFINIR TRAINER Y POSICIONES DE VICTORIA
+            #Sistema para devolver la posición de victoria contra entrenadores
+            elif(self.current_trainer =="trainer1"):
+                self.x_victoria = "Aun por definir"
+                self.y_victoria = "Aun por definir"
+            elif(self.current_trainer =="trainer2"):
+                self.x_victoria = "Aun por definir"
+                self.y_victoria = "Aun por definir"
+            elif(self.current_trainer =="trainer3"):
+                self.x_victoria = "Aun por definir"
+                self.y_victoria = "Aun por definir"
+            elif(self.current_trainer =="trainer4"):
+                self.x_victoria = "Aun por definir"
+                self.y_victoria = "Aun por definir"
+            elif(self.current_trainer =="trainer5"):
+                self.x_victoria = "Aun por definir"
+                self.y_victoria = "Aun por definir"
+            elif(self.current_trainer =="trainer6"):
+                self.x_victoria = "Aun por definir"
+                self.y_victoria = "Aun por definir"
+            elif(self.current_trainer =="trainer7"):
+                self.x_victoria = "Aun por definir"
+                self.y_victoria = "Aun por definir"
+
 
             self.contador_mensaje = 180
             if (self.contador_mensaje == 0):
@@ -576,6 +601,107 @@ class MyGame(arcade.Window):
                                                                          self.rooms[self.current_room].wall_list)
                 else: self.contador_combate -= 60
 
+        #Sistema de vision para los entrenadores y generar sus combate
+        if(self.current_room == 4 and 500<=self.player_sprite.center_x<=500 and 500<=self.player_sprite.center_y<=500):
+            self.is_salvaje = False
+            self.current_trainer = "trainer"
+            #ERROR Menasje??
+            if (self.contador_mensaje == 0):
+                self.current_room = 12
+                self.player_sprite.center_x = 500
+                self.player_sprite.center_y = 80
+                self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                                 self.rooms[self.current_room].wall_list)
+                #ERROR Mensaje??
+                self.contador_mensaje = 180
+            else:
+                self.contador_mensaje -= 1
+
+        elif(self.current_room == 5 and 500<=self.player_sprite.center_x<=500 and 500<=self.player_sprite.center_y<=500):
+            self.is_salvaje = False
+            self.current_trainer = "trainer"
+            #ERROR Menasje??
+            if (self.contador_mensaje == 0):
+                self.current_room = 12
+                self.player_sprite.center_x = 500
+                self.player_sprite.center_y = 80
+                self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                                 self.rooms[self.current_room].wall_list)
+                #ERROR Mensaje??
+                self.contador_mensaje = 180
+            else:
+                self.contador_mensaje -= 1
+
+        elif (self.current_room == 6 and 500<=self.player_sprite.center_x<=500 and 500<=self.player_sprite.center_y<=500):
+            self.is_salvaje = False
+            self.current_trainer = "trainer"
+            #ERROR Menasje??
+            if (self.contador_mensaje == 0):
+                self.current_room = 12
+                self.player_sprite.center_x = 500
+                self.player_sprite.center_y = 80
+                self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                                 self.rooms[self.current_room].wall_list)
+                #ERROR Mensaje??
+                self.contador_mensaje = 180
+            else:
+                self.contador_mensaje -= 1
+        elif (self.current_room == 7 and 500<=self.player_sprite.center_x<=500 and 500<=self.player_sprite.center_y<=500):
+            self.is_salvaje = False
+            self.current_trainer = "trainer"
+            #ERROR Menasje??
+            if (self.contador_mensaje == 0):
+                self.current_room = 12
+                self.player_sprite.center_x = 500
+                self.player_sprite.center_y = 80
+                self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                                 self.rooms[self.current_room].wall_list)
+                #ERROR Mensaje??
+                self.contador_mensaje = 180
+            else:
+                self.contador_mensaje -= 1
+        elif (self.current_room == 8 and 500<=self.player_sprite.center_x<=500 and 500<=self.player_sprite.center_y<=500):
+            self.is_salvaje = False
+            self.current_trainer = "trainer"
+            #ERROR Menasje??
+            if (self.contador_mensaje == 0):
+                self.current_room = 12
+                self.player_sprite.center_x = 500
+                self.player_sprite.center_y = 80
+                self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                                 self.rooms[self.current_room].wall_list)
+                #ERROR Mensaje??
+                self.contador_mensaje = 180
+            else:
+                self.contador_mensaje -= 1
+        elif (self.current_room == 9 and 500<=self.player_sprite.center_x<=500 and 500<=self.player_sprite.center_y<=500):
+            self.is_salvaje = False
+            self.current_trainer = "trainer"
+            #ERROR Menasje??
+            if (self.contador_mensaje == 0):
+                self.current_room = 12
+                self.player_sprite.center_x = 500
+                self.player_sprite.center_y = 80
+                self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                                 self.rooms[self.current_room].wall_list)
+                #ERROR Mensaje??
+                self.contador_mensaje = 180
+            else:
+                self.contador_mensaje -= 1
+        elif (self.current_room == 10 and 500<=self.player_sprite.center_x<=500 and 500<=self.player_sprite.center_y<=500):
+            self.is_salvaje = False
+            self.current_trainer = "trainer"
+            #ERROR Menasje??
+            if (self.contador_mensaje == 0):
+                self.current_room = 12
+                self.player_sprite.center_x = 500
+                self.player_sprite.center_y = 80
+                self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                                 self.rooms[self.current_room].wall_list)
+                #ERROR Mensaje??
+                self.contador_mensaje = 180
+            else:
+                self.contador_mensaje -= 1
 
 
         # Sistema para regresar al pueblo con cuerda huida

@@ -60,7 +60,7 @@ def nuevo_salvaje(room):
         tipo = lista_fakemon1[nombre]
         nivel = random.randint(1, 6)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
-        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + diccionario_fakemon[nombre]
+        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy" + os.path.sep + diccionario_fakemon[nombre]+".png"
 
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
@@ -72,7 +72,7 @@ def nuevo_salvaje(room):
         tipo = lista_fakemon2[nombre]
         nivel = random.randint(6, 12)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
-        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "\enemy" + diccionario_fakemon[nombre]
+        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy" + os.path.sep + diccionario_fakemon[nombre]+".png"
 
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
@@ -84,7 +84,7 @@ def nuevo_salvaje(room):
         tipo = lista_fakemon3[nombre]
         nivel = random.randint(12, 18)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
-        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "\enemy" + diccionario_fakemon[nombre]
+        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy" + os.path.sep + diccionario_fakemon[nombre]+".png"
 
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
@@ -96,7 +96,7 @@ def nuevo_salvaje(room):
         tipo = lista_fakemon4[nombre]
         nivel = random.randint(18, 24)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
-        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "\enemy" + diccionario_fakemon[nombre]
+        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy" + os.path.sep + diccionario_fakemon[nombre]+".png"
 
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
@@ -108,7 +108,7 @@ def nuevo_salvaje(room):
         tipo = lista_fakemon5[nombre]
         nivel = random.randint(24, 30)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
-        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "\enemy" + diccionario_fakemon[nombre]
+        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy" + os.path.sep + diccionario_fakemon[nombre]+".png"
 
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
@@ -120,7 +120,7 @@ def nuevo_salvaje(room):
         tipo = lista_fakemon6[nombre]
         nivel = random.randint(30, 36)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
-        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "\enemy" + diccionario_fakemon[nombre]
+        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy" + os.path.sep + diccionario_fakemon[nombre]+".png"
 
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
@@ -132,7 +132,7 @@ def nuevo_salvaje(room):
         tipo = lista_fakemon7[nombre]
         nivel = random.randint(36, 40)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
-        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "\enemy" + diccionario_fakemon[nombre]
+        imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy" + os.path.sep + diccionario_fakemon[nombre]+".png"
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel,0,HP_MAX,ataque,defensa, imagen)
         bonificacion(fakemon)
         return fakemon
