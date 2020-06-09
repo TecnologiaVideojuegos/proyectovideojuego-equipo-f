@@ -166,8 +166,8 @@ class MyGame(arcade.Window):
 
 
             #Cargamos las imagenes de los fakemon
+            arcade.draw_lrwh_rectangle_textured(730, 370, 250, 250, arcade.load_texture(self.current_enemy.imagen))
             arcade.draw_lrwh_rectangle_textured(120,85, 300,300,arcade.load_texture(self.current_ally.imagen))
-            arcade.draw_lrwh_rectangle_textured(730, 370, 250, 250,arcade.load_texture(self.current_enemy.imagen))
 
             #Cargamos los distintos tipos de mensajes que pueden aparecer en el combate
             if(self.ally_ataque):
@@ -401,7 +401,7 @@ class MyGame(arcade.Window):
                     self.current_ally = self.jugador.lista_equipo[0]
 
                 if key == arcade.key.KEY_4: print("No puedes huir en combates contra entrenadores")
-                    
+
                     
                     
                     
@@ -475,15 +475,15 @@ class MyGame(arcade.Window):
             elif(self.current_trainer =="trainer7"):
                 self.x_victoria = "Aun por definir"
                 self.y_victoria = "Aun por definir"
-
-
+            self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                             self.rooms[self.current_room].wall_list)
+            self.current_enemy = ""
+            self.current_trainer = ""
             self.contador_mensaje = 180
             if (self.contador_mensaje == 0):
                 self.current_enemy = ""
                 self.current_trainer = ""
                 self.has_ganado = False
-                self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
-                                                                 self.rooms[self.current_room].wall_list)
                 self.contador_mensaje = 180
             else:
                 self.contador_mensaje -= 1
@@ -584,7 +584,7 @@ class MyGame(arcade.Window):
 
 
         # Sistema para generar fakemon salvajes dependiendo del piso donde se encuentre
-        if (self.current_room != 3 and self.current_room != 12 and self.current_room != 0 and self.current_room != 1 and self.current_room != 2 and self.current_room != 11):
+        if (3<self.current_room<11):
             if (self.player_sprite.change_x == MOVEMENT_SPEED or self.player_sprite.change_y == MOVEMENT_SPEED or self.player_sprite.change_x == -MOVEMENT_SPEED or self.player_sprite.change_y == -MOVEMENT_SPEED ):
                 if(self.contador_combate == 0):
                     empieza_combate = random.randint(0, 500)
