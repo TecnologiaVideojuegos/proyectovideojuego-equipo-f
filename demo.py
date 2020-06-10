@@ -104,6 +104,9 @@ class MyGame(arcade.Window):
 
         prueba1 = Objeto_Pokemon.Fakemon("prueba1", "estelar", 30, 20, 200, 100, 100, "")
 
+
+
+
         ###################Registro de entrenadores################################
         self.jugador = Objeto_Entrenador.Entrenador("jugador")
         self.jugador.lista_equipo.append(prueba1)
@@ -141,6 +144,9 @@ class MyGame(arcade.Window):
             # Dibuja la cantidad de dinero que tiene un jugador
             arcade.draw_text("Dinero:" + str(self.jugador.dinero), 600,
                              150, arcade.color.BLACK)
+            arcade.draw_text("Tu " + "pikachu" + " ha inflijido" + "5" + "de daño.\n" +
+                             "Ha sido muy eficaz", 250, 750, arcade.color.BLACK)
+            arcade.draw_rectangle
 
         if (self.current_room == 3 and (
                 self.player_sprite.center_x >= 271 and self.player_sprite.center_x <= 283) and self.player_sprite.center_y == 393.5):
@@ -176,6 +182,9 @@ class MyGame(arcade.Window):
                 arcade.draw_text(self.current_enemy.nombre, 300, 530, arcade.color.BLACK, 12)
                 arcade.draw_text(str(Combate.atacar(self.current_ally, self.current_enemy)), 300, 530, arcade.color.BLACK, 12)
                 arcade.draw_text(Combate.atacar_mensaje(self.current_ally, self.current_enemy), 300, 530,arcade.color.BLACK, 12)
+                #arcade.draw_text("Tu " + str(self.current_ally.nombre) + " ha inflijido" + daño + ".\n" +
+                 #                str(Combate.atacar(self.current_ally, self.current_enemy), 150,
+                       #          800, arcade.color.BLACK)
 
             elif(self.enemy_ataque):
                 self.genera_texto("enemy_ataque.png")
