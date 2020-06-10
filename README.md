@@ -1,6 +1,6 @@
-**Fakemon y la torre de los deseos
+**Fakemon y la torre de los deseos**
 
-**Proyecto de videojuegos del equipo F
+**Proyecto de videojuegos del equipo F**
 Este equipo esta formado por:
 
 **Iñaki Cezón Ortega** ----------> Jefe de Equipo 
@@ -12,5 +12,9 @@ Este equipo esta formado por:
 **Javier Alonso Lledó** ---------> Programación
  - Programación de la clase Fakemon
 **Carlos Castilla Fernández** ---> Programador
+ -
 **Adrián de Paco Toledano** -----> Sonido
+ -
+-
+https://inaki55.wixsite.com/fakemon
 
