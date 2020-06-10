@@ -498,8 +498,9 @@ def checkeo(jugador, enemigo):
 
         #Gana el combate
         #Suma experiencia
-        jugador.lista_equipo[0].contador_exp = exp(jugador.lista_equipo[0].contador_exp, jugador.lista_equipo[0].nivel,
-                                                   enemigo.nivel)
+        aliado.contador_exp = exp(aliado.contador_exp, aliado.nivel, enemigo.nivel)
+        if aliado.contador_exp >= aliado.exp_final:
+            aliado.subir_nivel();
 
         #Ganas el combate
         print ("Ganas el combate")
@@ -546,11 +547,9 @@ def checkeo_e(jugador, entrenador):
         entrenador.lista_equipo.pop(0)  # Retirar del equipo de aliado
 
         # Suma experiencia
-        jugador.lista_equipo[0].contador_exp = exp(jugador.lista_equipo[0].contador_exp, jugador.lista_equipo[0].nivel,
-                                                   enemigo.nivel)
-
-        if jugador.lista_equipo[0].contador_exp > jugador.lista_equipo[0].exp_final:
-            jugador.lista_equipo[0].subir_nivel()
+        aliado.contador_exp = exp(aliado.contador_exp, aliado.nivel, enemigo.nivel)
+        if aliado.contador_exp >= aliado.exp_final:
+            aliado.subir_nivel();
 
 
         #Si quedan mas enemigos
