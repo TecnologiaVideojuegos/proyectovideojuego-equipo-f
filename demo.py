@@ -3,8 +3,6 @@ import os
 import arcade
 import random
 # Librerias internas
-import self as self
-
 import Objeto_Entrenador
 import Objeto_Pokemon
 from tests import Combate
@@ -129,7 +127,7 @@ class MyGame(arcade.Window):
                                                 "resources" + os.path.sep + "sprites" + os.path.sep + "messages" + os.path.sep + text))
 
     def on_draw(self):
-
+        #Establecemos el nivel
         arcade.start_render()
         self.rooms[self.current_room].textura.draw()
         self.rooms[self.current_room].wall_list.draw()
@@ -191,8 +189,8 @@ class MyGame(arcade.Window):
                     self.current_enemy.HP_MAX) + "                    " + self.current_enemy.tipo, 300,
                 510, arcade.color.BLACK, 12)
 
-            arcade.draw_text(self.mensaje, 300, 510, arcade.color.BLACK, 12)
-            arcade.draw_text(self.mensaje_enemy, 300, 510, arcade.color.BLACK, 12)
+            arcade.draw_text(self.mensaje,800,700,arcade.color.BLACK,12,10)
+            arcade.draw_text(self.mensaje_enemy, 300, 510, arcade.color.BLACK, 12,10)
 
             # Cargamos las imagenes de los fakemon
             arcade.draw_lrwh_rectangle_textured(730, 370, 250, 250, arcade.load_texture(self.current_enemy.imagen))
@@ -201,19 +199,19 @@ class MyGame(arcade.Window):
             # Cargamos los distintos tipos de mensajes que pueden aparecer en el combate
             if (self.ally_ataque):
                 self.mensaje = "Tu" + self.current_ally.nombre + " ha inflijido" + self.current_enemy.nombre + ":" + str(
-                    Combate.atacar(self.current_ally, self.current_enemy) + ".\n" + Combate.atacar_mensaje(
-                        self.current_ally, self.current_enemy)
+                    Combate.atacar(self.current_ally, self.current_enemy) + ".\n" + Combate.atacar_mensaje(self.current_ally, self.current_enemy))
 
-            if (self.enemy_ataque):
+            if self.enemy_ataque:
+
                 self.mensaje_enemy = self.current_enemy.nombre + " ha inflijido" + arcade.draw_text(
                 self.current_ally.nombre, 300, 530, arcade.color.BLACK, 12) + ":" + str(
-                       Combate.atacar(self.current_enemy, self.current_ally) + ".\n" + Combate.atacar_mensaje(
+                       Combate.atacar(self.current_enemy, self.current_ally)) + ".\n" + Combate.atacar_mensaje(
                             self.current_enemy, self.current_ally)
 
             if (self.pocion):
                     self.mensaje = self.current_ally.nombre + " se ha curado " + str(
                         int(self.current_ally.HP * 0.5) + " gastando una poción en el proceso(" +
-                        self.jugador.inventario['Pocion'] + ")"
+                        self.jugador.inventario['Pocion'] + ")")
 
             if (self.cambio):
                     self.mensaje = self.current_ally.nombre + " se retira, " + self.jugador.lista_equipo[
@@ -420,12 +418,12 @@ class MyGame(arcade.Window):
 
         # Sistema de tiendas
         if (self.current_room == 3 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5):
-            if key == arcade.key.KEY_1 and self.jugador.dinero > 50:
+            if key == arcade.key.KEY_1 and self.jugador.dinero >= 50:
                 print("Comprado Pocion")
                 self.jugador.restar_dinero(50)
                 self.jugador.inventario["Pocion"] += 1
                 print(str(self.jugador.inventario["Pocion"]))
-            if key == arcade.key.KEY_2 and self.jugador.dinero > 100:
+            if key == arcade.key.KEY_2 and self.jugador.dinero >= 100:
                 print("Comprado Cuerda Huida")
                 self.jugador.restar_dinero(100)
                 self.jugador.inventario['Cuerda Huida'] += 1
