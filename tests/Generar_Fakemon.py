@@ -53,8 +53,8 @@ Para los tipos y sus debilidades/fortalezas consulte el documento datos ordenado
 def nuevo_salvaje(room):
     # Clave(nombre), Contenido(Dirección imagen)
 
-    diccionario_fakemon = {"prueba":"1", "prueba2": "2", "": ""
-        , "": "", "": "", "": "", "": "", "": "",
+    diccionario_fakemon = {"Cablanta":"Cablanta", "Cablanta Shiny": "Cablanta Shiny", "Pyro": "Pyro"
+        , "Oryp": "Oryp", "Sarzul": "Sarzul", "Sargrey": "Sargrey", "": "", "": "",
                            "": "", "": "", "": "", "": ""}
     # valores estadisticas bases (lvl 1)
     HP_MAX = random.randint(20, 25)  # random 20-25 vida inicial
@@ -62,7 +62,7 @@ def nuevo_salvaje(room):
     defensa = random.randint(3, 4)  # random 3-4 defensa inicial
     # nivel1
     if (room == 4):
-        lista_fakemon1 = {"prueba": "estelar", "prueba2": "estelar", "prueba": "estelar"}
+        lista_fakemon1 = {"Cablanta": "estelar", "Sarzul": "estelar"}
         nombre = random.choice(list(lista_fakemon1.keys()))
         tipo = lista_fakemon1[nombre]
         nivel = random.randint(1, 6)
@@ -74,7 +74,7 @@ def nuevo_salvaje(room):
         return fakemon
     # nivel2
     elif (room == 5):
-        lista_fakemon2 = {"": "", "": "", "": ""}
+        lista_fakemon2 = {"": "volcanico", "Pyro": "volcanico"}
         nombre = random.choice(list(lista_fakemon2.keys()))
         tipo = lista_fakemon2[nombre]
         nivel = random.randint(6, 12)
@@ -87,7 +87,7 @@ def nuevo_salvaje(room):
         return fakemon
     # nivel3
     elif (room == 6):
-        lista_fakemon3 = {"": "", "": "", "": ""}
+        lista_fakemon3 = {"Oryp": "demonio", "": "demonio"}
         nombre = random.choice(list(lista_fakemon3.keys()))
         tipo = lista_fakemon3[nombre]
         nivel = random.randint(12, 18)
@@ -100,7 +100,7 @@ def nuevo_salvaje(room):
         return fakemon
     # nivel4
     elif (room == 7):
-        lista_fakemon4 = {"": "", "": "", "": ""}
+        lista_fakemon4 = {"": "vacio", "": "vacio", "": "cometa","":"cometa"}
         nombre = random.choice(list(lista_fakemon4.keys()))
         tipo = lista_fakemon4[nombre]
         nivel = random.randint(18, 24)
@@ -113,7 +113,7 @@ def nuevo_salvaje(room):
         return fakemon
     # nivel5
     elif (room == 8):
-        lista_fakemon5 = {"": "", "": "", "": ""}
+        lista_fakemon5 = {"": "cometa", "": "cometa", "Cablanta Shiny": "lunar","Sargrey":"lunar"}
         nombre = random.choice(list(lista_fakemon5.keys()))
         tipo = lista_fakemon5[nombre]
         nivel = random.randint(24, 30)
@@ -126,7 +126,7 @@ def nuevo_salvaje(room):
         return fakemon
     # nivel6
     elif (room == 9):
-        lista_fakemon6 = {"": "", "": "", "": ""}
+        lista_fakemon6 = {"Sargrey": "lunar", "Cablanta Shiny": "lunar", "": "cometa", "": "cometa", "Cablanta": "estelar", "Sarzul": "estelar"}
         nombre = random.choice(list(lista_fakemon6.keys()))
         tipo = lista_fakemon6[nombre]
         nivel = random.randint(30, 36)
@@ -139,7 +139,9 @@ def nuevo_salvaje(room):
         return fakemon
     # nivel7
     elif (room == 10):
-        lista_fakemon7 = {"": "", "": "", "": ""}
+        lista_fakemon7 = {"Cablanta": "estelar", "Sarzul": "estelar", "Pyro": "volcanico"
+            , "": "volcanico", "Oryp": "demonio", "": "demonio", "": "cometa", "": "cometa",
+                               "": "vacio", "": "vacio", "Sargrey": "lunar", "Cablanta Shiny": "lunar"}
         nombre = random.choice(list(lista_fakemon7.keys()))
         tipo = lista_fakemon7[nombre]
         nivel = random.randint(36, 40)

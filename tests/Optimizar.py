@@ -2,6 +2,9 @@ import os
 import arcade
 
 # La clase room es aquella clase que crea los escenarios donde se desplaza el jugador
+import Objeto_Pokemon
+
+
 class Room:
     """
     Esta clase crea y caga las distintas habitaciones del juego
@@ -31,6 +34,7 @@ def setup_nivel(nivel):
     room.wall_list = wall
 
     return room
+
 
 def habitaciones():
     rooms = []
@@ -68,9 +72,9 @@ def habitaciones():
     rooms.append(room)
     return rooms
 
-def texturas_jugador():
 
-    #Cargamos textura de sprite quieto
+def texturas_jugador():
+    # Cargamos textura de sprite quieto
     stand_right_textures = []
     stand_right_textures.append(arcade.load_texture(
         "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der0.png"))
@@ -159,4 +163,55 @@ def texturas_jugador():
     walk_up_textures.append(arcade.load_texture(
         "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Arriba" + os.path.sep + "Arr8.png"))
 
-    return  stand_right_textures,stand_left_textures,walk_right_textures,walk_left_textures,walk_down_textures,walk_up_textures
+    return stand_right_textures, stand_left_textures, walk_right_textures, walk_left_textures, walk_down_textures, walk_up_textures
+
+
+def lista_entrenador(num):
+    # (self,nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
+    # + os.path.sep +
+    lista_equipo = []
+    path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy"
+    if (num == 1):
+        fakemon = Objeto_Pokemon.Fakemon("Sarzul", "estelar", 30, 20, 200, 10, 10, path + os.path.sep + "Sarzul.png")
+        lista_equipo.append(fakemon)
+    elif (num == 2):
+        fakemon = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 200, 10, 10, path + os.path.sep + "Pyro.png")
+        lista_equipo.append(fakemon)
+    elif (num == 3):
+        fakemon1 = Objeto_Pokemon.Fakemon("Oryp", "demonio", 30, 20, 200, 10, 10, path + os.path.sep + "Oryp.png")
+        fakemon2 = Objeto_Pokemon.Fakemon("", "demonio", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        lista_equipo.append(fakemon1)
+        lista_equipo.append(fakemon2)
+
+    elif (num == 4):
+        fakemon1 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        fakemon2 = Objeto_Pokemon.Fakemon("", "cometa", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        lista_equipo.append(fakemon1)
+        lista_equipo.append(fakemon2)
+
+    elif (num == 5):
+        fakemon1 = Objeto_Pokemon.Fakemon("", "cometa", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        fakemon2 = Objeto_Pokemon.Fakemon("", "cometa", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        fakemon3 = Objeto_Pokemon.Fakemon("", "lunar", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        lista_equipo.append(fakemon1)
+        lista_equipo.append(fakemon2)
+        lista_equipo.append(fakemon3)
+
+    elif (num == 6):
+        fakemon1 = Objeto_Pokemon.Fakemon("", "lunar", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        fakemon2 = Objeto_Pokemon.Fakemon("Sargrey", "lunar", 30, 20, 200, 10, 10, path + os.path.sep + "Sargrey.png")
+        fakemon3 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10, path + os.path.sep + "Cablanta.png")
+        lista_equipo.append(fakemon1)
+        lista_equipo.append(fakemon2)
+        lista_equipo.append(fakemon3)
+
+    elif (num == 7):
+        fakemon1 = Objeto_Pokemon.Fakemon("Oryp", "demonio", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        fakemon2 = Objeto_Pokemon.Fakemon("", "volcanico", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        fakemon4 = Objeto_Pokemon.Fakemon("Sarzul", "estelar", 30, 20, 200, 10, 10, path + os.path.sep + "Sarzul.png")
+        lista_equipo.append(fakemon1)
+        lista_equipo.append(fakemon2)
+        lista_equipo.append(fakemon3)
+        lista_equipo.append(fakemon4)
+    return lista_equipo
