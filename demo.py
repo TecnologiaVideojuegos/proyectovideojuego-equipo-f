@@ -20,7 +20,7 @@ VIEWPORT_MARGIN_BOTTOM = 60
 VIEWPORT_RIGHT_MARGIN = 270
 VIEWPORT_LEFT_MARGIN = 270
 # MOVEMENT_SPEED = 2 es la velocidad normal
-MOVEMENT_SPEED = 5
+MOVEMENT_SPEED = 8
 
 
 # Juego
@@ -259,41 +259,22 @@ class MyGame(arcade.Window):
 
             width, height = self.get_size()
             self.set_viewport(0, width, 0, height)
-        if (self.current_room == 12):
 
-            # Combate vs salvaje
-            if self.is_salvaje:
+        if not self.has_ganado and not self.has_perdido:
+            if self.current_room == 12:
 
-                if key == arcade.key.KEY_1:
-                    Combate.atacar(self.current_ally, self.current_enemy)
-                    self.ally_ataque = True
+                # Combate vs salvaje
+                if self.is_salvaje:
 
-                    print("HP enemigo:" + str(self.current_enemy.HP))
-                    print("HP aliado:" + str(self.current_ally.HP))
+                    if key == arcade.key.KEY_1:
+                        Combate.atacar(self.current_ally, self.current_enemy)
+                        self.ally_ataque = True
 
-                    self.has_perdido, self.has_ganado, self.current_ally = Combate.checkeo(self.jugador,
-                                                                                           self.current_enemy)
-                    # Turno enemigo
-                    Combate.atacar(self.current_enemy, self.current_ally)
-                    self.enemy_ataque = True
+                        print("HP enemigo:" + str(self.current_enemy.HP))
+                        print("HP aliado:" + str(self.current_ally.HP))
 
-                    print("HP enemigo:" + str(self.current_enemy.HP))
-                    print("HP aliado:" + str(self.current_ally.HP))
-
-                    self.has_perdido, self.has_ganado, self.current_ally = Combate.checkeo(self.jugador,
-                                                                                           self.current_enemy)
-
-                if key == arcade.key.KEY_2:
-                    if self.jugador.inventario["Pocion"] > 0 and self.current_ally.HP < self.current_ally.HP_MAX:
-                        self.current_ally.HP = int(self.current_ally.HP * 1.5)
-                        self.pocion = True
-                        if self.current_ally.HP > self.current_ally.HP_MAX:
-                            self.current_ally.HP = self.current_ally.HP_MAX
-
-                        self.jugador.inventario["Pocion"] -= 1
-                        print("Pociones restantes: " + str(self.jugador.inventario["Pocion"]))
-                        print("Vida aliado: " + str(self.jugador.lista_equipo[0].HP))
-
+                        self.has_perdido, self.has_ganado, self.current_ally = Combate.checkeo(self.jugador,
+                                                                                               self.current_enemy)
                         # Turno enemigo
                         Combate.atacar(self.current_enemy, self.current_ally)
                         self.enemy_ataque = True
@@ -304,34 +285,21 @@ class MyGame(arcade.Window):
                         self.has_perdido, self.has_ganado, self.current_ally = Combate.checkeo(self.jugador,
                                                                                                self.current_enemy)
 
-                        print("Enemigo: " + self.current_enemy.nombre)
-                        print("Aliado: " + self.current_ally.nombre)
+                    if key == arcade.key.KEY_2:
+                        if self.jugador.inventario["Pocion"] > 0 and self.current_ally.HP < self.current_ally.HP_MAX:
+                            self.current_ally.HP = int(self.current_ally.HP * 1.5)
+                            self.pocion = True
+                            if self.current_ally.HP > self.current_ally.HP_MAX:
+                                self.current_ally.HP = self.current_ally.HP_MAX
 
-                        print("Peder: " + str(self.has_perdido))
-                        print("Ganar: " + str(self.has_ganado))
+                            self.jugador.inventario["Pocion"] -= 1
+                            print("Pociones restantes: " + str(self.jugador.inventario["Pocion"]))
+                            print("Vida aliado: " + str(self.jugador.lista_equipo[0].HP))
 
-                if key == arcade.key.KEY_3:
-                    # Intercambia el fakemon del jugador actual por el siguiente en la lista
-                    self.cambio = True
-                    fakemon_antiguo = self.jugador.lista_equipo[0]
-                    self.jugador.lista_equipo.pop(0)
-                    self.jugador.lista_equipo.append(fakemon_antiguo)
-                    self.current_ally = self.jugador.lista_equipo[0]
-
-                if key == arcade.key.KEY_4:
-
-                    # Si tiene cuerdas
-                    if self.jugador.inventario["Cuerda Huida"] > 0:
-
-                        x = random.randrange(9)  # Numeros del 0 al 9
-
-                        # La cuerda huida tiene un 30% de probabilidades de acertar, por lo tanto si x es 0, 1 o 2 surtira efecto
-                        if -1 < x < 3:
-                            self.cuerda_huida = True
-                        else:
                             # Turno enemigo
                             Combate.atacar(self.current_enemy, self.current_ally)
                             self.enemy_ataque = True
+
                             print("HP enemigo:" + str(self.current_enemy.HP))
                             print("HP aliado:" + str(self.current_ally.HP))
 
@@ -344,50 +312,58 @@ class MyGame(arcade.Window):
                             print("Peder: " + str(self.has_perdido))
                             print("Ganar: " + str(self.has_ganado))
 
-            # Combate vs entrenador
-            else:
+                    if key == arcade.key.KEY_3:
+                        # Intercambia el fakemon del jugador actual por el siguiente en la lista
+                        self.cambio = True
+                        fakemon_antiguo = self.jugador.lista_equipo[0]
+                        self.jugador.lista_equipo.pop(0)
+                        self.jugador.lista_equipo.append(fakemon_antiguo)
+                        self.current_ally = self.jugador.lista_equipo[0]
 
-                if key == arcade.key.KEY_1:
-                    Combate.atacar(self.current_ally, self.current_trainer.lista_equipo[0])
-                    self.ally_ataque = True
+                    if key == arcade.key.KEY_4:
 
-                    print("HP enemigo:" + str(self.current_trainer.lista_equipo[0].HP))
-                    print("HP aliado:" + str(self.current_ally.HP))
+                        # Si tiene cuerdas
+                        if self.jugador.inventario["Cuerda Huida"] > 0:
 
-                    self.has_perdido, self.has_ganado, self.current_ally, self.current_trainer = Combate.checkeo_e(
-                        self.jugador, self.current_trainer)
+                            x = random.randrange(9)  # Numeros del 0 al 9
 
-                    print("Enemigo: " + self.current_enemy.nombre)
-                    print("Aliado: " + self.current_ally.nombre)
+                            # La cuerda huida tiene un 30% de probabilidades de acertar, por lo tanto si x es 0, 1 o 2 surtira efecto
+                            if -1 < x < 3:
+                                self.cuerda_huida = True
+                            else:
+                                # Turno enemigo
+                                Combate.atacar(self.current_enemy, self.current_ally)
+                                self.enemy_ataque = True
+                                print("HP enemigo:" + str(self.current_enemy.HP))
+                                print("HP aliado:" + str(self.current_ally.HP))
 
-                    print("Peder: " + str(self.has_perdido))
-                    print("Ganar: " + str(self.has_ganado))
+                                self.has_perdido, self.has_ganado, self.current_ally = Combate.checkeo(self.jugador,
+                                                                                                       self.current_enemy)
 
-                    # Turno enemigo
-                    Combate.atacar(self.current_trainer.lista_equipo[0], self.current_ally)
-                    self.enemy_ataque = True
+                                print("Enemigo: " + self.current_enemy.nombre)
+                                print("Aliado: " + self.current_ally.nombre)
 
-                    print("HP enemigo:" + str(self.current_trainer.lista_equipo[0].HP))
-                    print("HP aliado:" + str(self.current_ally.HP))
+                                print("Peder: " + str(self.has_perdido))
+                                print("Ganar: " + str(self.has_ganado))
 
-                    self.has_perdido, self.has_ganado, self.current_ally, self.current_trainer = Combate.checkeo_e(
-                        self.jugador, self.current_trainer)
+                # Combate vs entrenador
+                else:
 
-                    print("Enemigo: " + self.current_enemy.nombre)
-                    print("Aliado: " + self.current_ally.nombre)
+                    if key == arcade.key.KEY_1:
+                        Combate.atacar(self.current_ally, self.current_trainer.lista_equipo[0])
+                        self.ally_ataque = True
 
-                    print("Peder: " + str(self.has_perdido))
-                    print("Ganar: " + str(self.has_ganado))
+                        print("HP enemigo:" + str(self.current_trainer.lista_equipo[0].HP))
+                        print("HP aliado:" + str(self.current_ally.HP))
 
-                if key == arcade.key.KEY_2:
-                    if (self.jugador.inventario["Pocion"] > 0 and self.current_ally.HP < self.current_ally.HP_MAX):
-                        self.current_ally.HP = int(self.current_ally.HP * 1.5)
-                        self.pocion = True
-                        if (self.current_ally.HP > self.current_ally.HP_MAX):
-                            self.current_ally.HP = self.current_ally.HP_MAX
+                        self.has_perdido, self.has_ganado, self.current_ally, self.current_trainer = Combate.checkeo_e(
+                            self.jugador, self.current_trainer)
 
-                        self.jugador.inventario["Pocion"] -= 1
-                        print("N pociones" + str(self.jugador.inventario["Pocion"]))
+                        print("Enemigo: " + self.current_enemy.nombre)
+                        print("Aliado: " + self.current_ally.nombre)
+
+                        print("Peder: " + str(self.has_perdido))
+                        print("Ganar: " + str(self.has_ganado))
 
                         # Turno enemigo
                         Combate.atacar(self.current_trainer.lista_equipo[0], self.current_ally)
@@ -405,17 +381,43 @@ class MyGame(arcade.Window):
                         print("Peder: " + str(self.has_perdido))
                         print("Ganar: " + str(self.has_ganado))
 
-                if key == arcade.key.KEY_3:
-                    # Intercambia el fakemon del jugador actual por el siguiente en la lista
-                    self.cambio = True
-                    fakemon_antiguo = self.jugador.lista_equipo[0]
-                    self.jugador.lista_equipo.pop(0)
-                    self.jugador.lista_equipo.append(fakemon_antiguo)
-                    self.current_ally = self.jugador.lista_equipo[0]
+                    if key == arcade.key.KEY_2:
+                        if (self.jugador.inventario["Pocion"] > 0 and self.current_ally.HP < self.current_ally.HP_MAX):
+                            self.current_ally.HP = int(self.current_ally.HP * 1.5)
+                            self.pocion = True
+                            if (self.current_ally.HP > self.current_ally.HP_MAX):
+                                self.current_ally.HP = self.current_ally.HP_MAX
 
-                if key == arcade.key.KEY_4:
-                    self.no_huida = True
-                    print("No puedes huir en combates contra entrenadores")
+                            self.jugador.inventario["Pocion"] -= 1
+                            print("N pociones" + str(self.jugador.inventario["Pocion"]))
+
+                            # Turno enemigo
+                            Combate.atacar(self.current_trainer.lista_equipo[0], self.current_ally)
+                            self.enemy_ataque = True
+
+                            print("HP enemigo:" + str(self.current_trainer.lista_equipo[0].HP))
+                            print("HP aliado:" + str(self.current_ally.HP))
+
+                            self.has_perdido, self.has_ganado, self.current_ally, self.current_trainer = Combate.checkeo_e(
+                                self.jugador, self.current_trainer)
+
+                            print("Enemigo: " + self.current_enemy.nombre)
+                            print("Aliado: " + self.current_ally.nombre)
+
+                            print("Peder: " + str(self.has_perdido))
+                            print("Ganar: " + str(self.has_ganado))
+
+                    if key == arcade.key.KEY_3:
+                        # Intercambia el fakemon del jugador actual por el siguiente en la lista
+                        self.cambio = True
+                        fakemon_antiguo = self.jugador.lista_equipo[0]
+                        self.jugador.lista_equipo.pop(0)
+                        self.jugador.lista_equipo.append(fakemon_antiguo)
+                        self.current_ally = self.jugador.lista_equipo[0]
+
+                    if key == arcade.key.KEY_4:
+                        self.no_huida = True
+                        print("No puedes huir en combates contra entrenadores")
 
         # Sistema de tiendas
         if (self.current_room == 3 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5):
@@ -457,8 +459,6 @@ class MyGame(arcade.Window):
         # Volver si has ganado
         if self.has_ganado:
             self.jugador.dinero += 150
-            self.current_enemy = ""
-            self.current_trainer = ""
             self.movimiento = False
 
             print(str(self.contador_mensaje))
@@ -498,6 +498,7 @@ class MyGame(arcade.Window):
                 self.has_ganado = False
                 self.movimiento = True
                 self.contador_mensaje = 180
+
             else:
                 self.contador_mensaje -= 1
 
