@@ -5,7 +5,7 @@ import random
 # Librerias internas
 import Objeto_Entrenador
 import Objeto_Pokemon
-from tests import Combate
+from tests import Combate, Optimizar
 from tests.Generar_Fakemon import nuevo_salvaje
 from tests.Optimizar import habitaciones, texturas_jugador
 
@@ -109,11 +109,29 @@ class MyGame(arcade.Window):
 
         ###################Registro de fakemon################################
         # (nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
-        prueba1 = Objeto_Pokemon.Fakemon("prueba1", "estelar", 30, 20, 200, 10, 10, "")
+        path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "ally"
+        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 200, 10, 10, path + os.path.sep +"Pyro.png")
+        fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10, path + os.path.sep + "Cablanta.png")
+        fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
+        fakemon4 = Objeto_Pokemon.Fakemon("Sargrey", "lunar", 30, 20, 200, 10, 10, path + os.path.sep + "Sargrey.png")
 
         ###################Registro de entrenadores################################
-        self.jugador = Objeto_Entrenador.Entrenador("jugador")
-        self.jugador.lista_equipo.append(prueba1)
+        self.jugador = Objeto_Entrenador.Entrenador("Doble elefante telépata de guerra")
+        self.jugador.lista_equipo.append(fakemon1)
+        self.trainer1 = Objeto_Entrenador.Entrenador("Segismundo")
+        self.trainer1.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer2 = Objeto_Entrenador.Entrenador("Sigismundo")
+        self.trainer2.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer3 = Objeto_Entrenador.Entrenador("Roberto")
+        self.trainer3.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer4 = Objeto_Entrenador.Entrenador("Sagismundo")
+        self.trainer4.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer5 = Objeto_Entrenador.Entrenador("Sogismundo")
+        self.trainer5.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer6 = Objeto_Entrenador.Entrenador("Sugusmundo")
+        self.trainer6.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer7 = Objeto_Entrenador.Entrenador("El protector de la torre")
+        self.trainer7.lista_equipo = Optimizar.lista_entrenador(1)
 
         # Establecemos dos variables globales para el combate
         self.current_enemy = ""
@@ -191,7 +209,7 @@ class MyGame(arcade.Window):
 
             # Cargamos las imagenes de los fakemon
             arcade.draw_lrwh_rectangle_textured(730, 370, 250, 250, arcade.load_texture(self.current_enemy.imagen))
-            # arcade.draw_lrwh_rectangle_textured(120,85, 300,300,arcade.load_texture(self.current_ally.imagen))
+            arcade.draw_lrwh_rectangle_textured(120,85, 300,300,arcade.load_texture(self.current_ally.imagen))
 
             # Cargamos los distintos tipos de mensajes que pueden aparecer en el combate
             if (self.ally_ataque):
