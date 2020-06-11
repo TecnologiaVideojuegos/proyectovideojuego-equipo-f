@@ -12,6 +12,7 @@ def bonificacion(fakemon):
         fakemon.defensa += 3
     elif (mejora == 3):
         fakemon.HP_MAX += random.randint(10, 50)
+        fakemon.HP = fakemon.HP_MAX
 
     if (desmejora == 1):
         fakemon.ataque -= 3
@@ -19,6 +20,7 @@ def bonificacion(fakemon):
         fakemon.defensa -= 3
     elif (desmejora == 3):
         fakemon.HP_MAX -= 3
+        fakemon.HP = fakemon.HP_MAX
 
 
 def subir_estadisticas(nivel, HP_MAX, ataque, defensa):
@@ -68,7 +70,6 @@ def nuevo_salvaje(room):
         nivel = random.randint(1, 6)
         subir_estadisticas(nivel, HP_MAX, ataque, defensa)
         imagen = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy" + os.path.sep + diccionario_fakemon[nombre] + ".png"
-        print(str(imagen))
         fakemon = Objeto_Pokemon.Fakemon(nombre, tipo, nivel, 0, HP_MAX, ataque, defensa, imagen)
         bonificacion(fakemon)
         return fakemon

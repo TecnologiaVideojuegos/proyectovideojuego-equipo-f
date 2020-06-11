@@ -27,15 +27,13 @@ class Fakemon:
             self.ataque *= 1.23
             self.defensa *= 1.27
             self.HP = self.HP_MAX
-            # Falta cuadro de texto indicando que pokemon ha subido de nivel
+            self.exp_final += 10
         #A partir de lvl 10 la suma de estadisticas es distintas(10-40)
         elif(10<self.nivel<=40):
             self.ataque += 3
             self.HP_MAX += 5
             self.defensa +=2
             self.HP = self.HP_MAX
-            #Falta cuadro de texto indicando que pokemon ha subido de nivel
-        else:
-            self.HP = self.HP_MAX
-            # Falta cuadro de texto indicando que pokemon ha subido de nivel máximo
+            self.exp_final += 30
+
 
