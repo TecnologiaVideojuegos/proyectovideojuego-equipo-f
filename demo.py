@@ -196,7 +196,7 @@ class MyGame(arcade.Window):
             # Cargamos los distintos tipos de mensajes que pueden aparecer en el combate
             if (self.ally_ataque):
                 self.mensaje = "Tu " + self.current_ally.nombre + " ha inflijido " + self.current_enemy.nombre + ":" + str(
-                    Combate.atacar(self.current_ally, self.current_enemy)) + ".\n" + Combate.atacar_mensaje(
+                    int(Combate.num_atacar(self.current_ally, self.current_enemy))) + ".\n" + Combate.atacar_mensaje(
                     self.current_ally, self.current_enemy)
                 self.ally_ataque = False
 
@@ -204,7 +204,7 @@ class MyGame(arcade.Window):
             if self.enemy_ataque:
 
                 self.mensaje_enemy = self.current_enemy.nombre + " ha inflijido " + self.current_ally.nombre + ":" + str(
-                    Combate.atacar(self.current_enemy, self.current_ally)) + ".\n" + str(
+                    int(Combate.num_atacar(self.current_enemy, self.current_ally))) + ".\n" + str(
                     Combate.atacar_mensaje(self.current_enemy, self.current_ally))
                 self.enemy_ataque = False
 
