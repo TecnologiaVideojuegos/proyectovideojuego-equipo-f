@@ -45,7 +45,7 @@ def habitaciones():
     room = setup_nivel("naranja")
     rooms.append(room)
     # Historia
-    room = setup_nivel("naranja")
+    room = setup_nivel("historia")
     rooms.append(room)
     # Comienza el juego
     room = setup_nivel("nivel0")
