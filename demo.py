@@ -115,11 +115,11 @@ class MyGame(arcade.Window):
         ###################Registro de fakemon################################
         # (nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
         path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "ally"
-        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 2, 0, 0, path + os.path.sep + "Pyro.png")
-        fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10,
+        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 2, 10, 10, path + os.path.sep + "Pyro.png")
+        self.fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10,
                                           path + os.path.sep + "Cablanta.png")
-        fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
-        fakemon4 = Objeto_Pokemon.Fakemon("Sargrey", "lunar", 30, 20, 200, 10, 10, path + os.path.sep + "Sargrey.png")
+        self.fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
+        self.fakemon4 = Objeto_Pokemon.Fakemon("Sargrey", "lunar", 30, 20, 200, 10, 10, path + os.path.sep + "Sargrey.png")
 
         ###################Registro de entrenadores################################
         self.jugador = Objeto_Entrenador.Entrenador("Doble elefante telépata de guerra")
@@ -127,17 +127,17 @@ class MyGame(arcade.Window):
         self.trainer1 = Objeto_Entrenador.Entrenador("Segismundo")
         self.trainer1.lista_equipo = Optimizar.lista_entrenador(1)
         self.trainer2 = Objeto_Entrenador.Entrenador("Sigismundo")
-        self.trainer2.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer2.lista_equipo = Optimizar.lista_entrenador(2)
         self.trainer3 = Objeto_Entrenador.Entrenador("Roberto")
-        self.trainer3.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer3.lista_equipo = Optimizar.lista_entrenador(3)
         self.trainer4 = Objeto_Entrenador.Entrenador("Sagismundo")
-        self.trainer4.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer4.lista_equipo = Optimizar.lista_entrenador(4)
         self.trainer5 = Objeto_Entrenador.Entrenador("Sogismundo")
-        self.trainer5.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer5.lista_equipo = Optimizar.lista_entrenador(5)
         self.trainer6 = Objeto_Entrenador.Entrenador("Sugusmundo")
-        self.trainer6.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer6.lista_equipo = Optimizar.lista_entrenador(6)
         self.trainer7 = Objeto_Entrenador.Entrenador("El protector de la torre")
-        self.trainer7.lista_equipo = Optimizar.lista_entrenador(1)
+        self.trainer7.lista_equipo = Optimizar.lista_entrenador(7)
 
         # Establecemos dos variables globales para el combate
         self.current_enemy = ""
@@ -258,7 +258,6 @@ class MyGame(arcade.Window):
                 self.mensaje = "Tras quedarte sin fakemon con los que combatir \n escapas del combate y regresas al pueblo."
                 self.mensaje_enemy = ""
 
-                print ("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
             print(self.mensaje)
             print(self.mensaje_enemy)
@@ -465,13 +464,12 @@ class MyGame(arcade.Window):
 
         # Volver si has ganado
         if self.has_ganado:
-            self.jugador.dinero += 150
             self.movimiento = False
 
             print(str(self.contador_mensaje))
             if self.contador_mensaje == 0:
                 self.current_room = self.top_rooom
-
+                self.jugador.dinero += 150
                 if self.is_salvaje:
                     self.player_sprite.center_x = self.x_victoria
                     self.player_sprite.center_y = self.y_victoria
@@ -480,33 +478,43 @@ class MyGame(arcade.Window):
                 # ERROR FALTA POR DEFINIR TRAINER Y POSICIONES DE VICTORIA
                 # Sistema para devolver la posición de victoria contra entrenadores
                 elif self.current_trainer == self.trainer1:
+                    self.trainer1.no_derrotado = False
                     self.x_victoria = "Aun por definir"
                     self.y_victoria = "Aun por definir"
 
                 elif self.current_trainer == self.trainer2:
+                    self.trainer2.no_derrotado = False
                     # Añadir 1º fakemon
+                    self.jugador.lista_equipo.append(self.fakemon2)
                     self.x_victoria = "Aun por definir"
                     self.y_victoria = "Aun por definir"
 
                 elif self.current_trainer == self.trainer3:
+                    self.trainer3.no_derrotado = False
                     self.x_victoria = "Aun por definir"
                     self.y_victoria = "Aun por definir"
 
                 elif self.current_trainer == self.trainer4:
+                    self.trainer4.no_derrotado = False
                     # Añadir 2º fakemon
+                    self.jugador.lista_equipo.append(self.fakemon3)
                     self.x_victoria = "Aun por definir"
                     self.y_victoria = "Aun por definir"
 
                 elif self.current_trainer == self.trainer5:
+                    self.trainer5.no_derrotado = False
                     self.x_victoria = "Aun por definir"
                     self.y_victoria = "Aun por definir"
 
                 elif self.current_trainer == self.trainer6:
+                    self.trainer6.no_derrotado = False
                     # Añadir 3º fakemon
+                    self.jugador.lista_equipo.append(self.fakemon4)
                     self.x_victoria = "Aun por definir"
                     self.y_victoria = "Aun por definir"
 
                 elif self.current_trainer == self.trainer7:
+                    self.trainer7.no_derrotado = False
                     self.x_victoria = "Aun por definir"
                     self.y_victoria = "Aun por definir"
 
@@ -645,7 +653,7 @@ class MyGame(arcade.Window):
                     self.contador_combate -= 60
 
         # Sistema de vision para los entrenadores y generar sus combate
-        if self.current_room == 4 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500:
+        if self.current_room == 4 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer1.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer1
 
@@ -661,7 +669,7 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 5 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500:
+        elif self.current_room == 5 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer2.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer2
             # ERROR Menasje??
@@ -677,7 +685,7 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 6 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500:
+        elif self.current_room == 6 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer3.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer3
             # ERROR Menasje??
@@ -693,7 +701,7 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 7 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500:
+        elif self.current_room == 7 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer4.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer4
 
@@ -709,7 +717,7 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 8 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500:
+        elif self.current_room == 8 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer5.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer5
 
@@ -726,7 +734,7 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 9 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500:
+        elif self.current_room == 9 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer6.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer6
 
@@ -742,7 +750,7 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 10 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500:
+        elif self.current_room == 10 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer7.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer7
             # ERROR Menasje??
@@ -776,26 +784,7 @@ class MyGame(arcade.Window):
             for fakemon in self.jugador.lista_equipo:
                 fakemon.HP = fakemon.HP_MAX
 
-        # Sistema de mensajes de fakemon
-        """
-        Extructura de los timer 
-        if(self.contador_mensaje ==0):
-            self.variable = False
-            self.contador_mensaje = 180
-        else: self.contador_mensaje -=1    
-        """
-        """
-        if self.current_ally.exp_final <= self.current_ally.contador_exp:
-            self.current_ally.contador_exp = 0
-            self.subir_nivel = True
-            self.movimiento = False
-            if self.contador_mensaje == 0:
-                self.subir_nivel = False
-                self.current_ally.subir_nivel()
-                self.contador_mensaje = 180
-            else:
-                self.contador_mensaje -= 1
-        """
+
 
             # Sistema de camara para jugador
         changed = False
