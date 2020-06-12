@@ -756,14 +756,13 @@ def checkeo_e(jugador, entrenador):
         if len(jugador.lista_equipo) != 0:
 
             # El combate continua
-            return False, False, jugador.lista_equipo[
-                0], enemigo, entrenador, subir_nivel  # El enemigo se mantiene y el aliado pasa a ser el primero en la lista
+            return False, False, jugador.lista_equipo[0], enemigo, entrenador, subir_nivel  # El enemigo se mantiene y el aliado pasa a ser el primero en la lista
 
         # No quedan mas aliados
         else:
 
             # Pierde el combate, volver al inicio
-            return True, False, " ", " ", entrenador, subir_nivel  # El aliado y el entrenador se mantiene para curar a los fakemons
+            return True, False, aliado, enemigo, entrenador, subir_nivel  # El aliado y el entrenador se mantiene para curar a los fakemons
 
     # El fakemon enemigo esta muerto
     elif enemigo.HP <= 0:
