@@ -80,6 +80,10 @@ class MyGame(arcade.Window):
         self.contador_combate = 120
         self.contador_mensaje = 180
 
+        #Sonido
+        self.sonido_fallo = arcade.load_sound("resources" + os.path.sep + "sound" + os.path.sep + "Choque de no poder pasar.mp3")
+        self.sonido_Salto = arcade.load_sound("resources" + os.path.sep + "sounf" + os.path.sep + "Salto")
+
     def setup(self):
         """ Set up the game and initialize the variables. """
         # Set up the player
@@ -111,7 +115,7 @@ class MyGame(arcade.Window):
         ###################Registro de fakemon################################
         # (nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
         path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "ally"
-        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 200, 0, 0, path + os.path.sep + "Pyro.png")
+        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 2, 0, 0, path + os.path.sep + "Pyro.png")
         fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10,
                                           path + os.path.sep + "Cablanta.png")
         fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
@@ -334,14 +338,18 @@ class MyGame(arcade.Window):
 
                             # La cuerda huida tiene un 30% de probabilidades de acertar, por lo tanto si x es 0, 1 o 2 surtira efecto
                             if -1 < x < 3:
+                                arcade.play_sound(self.sonido_Salto)
                                 self.cuerda_huida = True
                             else:
+                                arcade.play_sound(self.sonido_fallo)
                                 self.fallo_huida = True
                                 # Turno enemigo
                                 Combate.atacar(self.current_enemy, self.current_ally)
                                 self.enemy_ataque = True
 
                                 self.has_perdido, self.has_ganado, self.current_ally, self.subir_nivel = Combate.checkeo(self.jugador, self.current_enemy)
+
+                        elif self.jugador.inventario["Cuerda Huida"] == 0: arcade.play_sound(self.sonido_fallo)
 
 
                 # Combate vs entrenador
