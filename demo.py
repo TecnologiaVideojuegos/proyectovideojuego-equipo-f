@@ -55,8 +55,8 @@ class MyGame(arcade.Window):
         # Variables globales para los principales procesos del juego
         self.tienda = False
         self.cuerda_huida = False
-        self.fakemon_nuevo = False
         self.movimiento = True
+        self.mensaje_trainer = False
         self.mensaje = ""
         self.mensaje_enemy = ""
         # Variables globales para el combate
@@ -75,7 +75,7 @@ class MyGame(arcade.Window):
         self.current_trainer = ""
         self.current_enemy = ""
         self.current_ally = ""
-        self.fakemon_nuevo_nombre = ""
+
 
         self.contador_combate = 120
         self.contador_mensaje = 180
@@ -184,13 +184,30 @@ class MyGame(arcade.Window):
                 self.player_sprite.center_x >= 73 and self.player_sprite.center_x <= 97) and self.player_sprite.center_y == 585.5:
             self.genera_texto("cuadrositiocerrado.png")
 
-        if self.fakemon_nuevo: pass
+
 
         # Mapa de coordenadas utilizado para saber la dirección
         arcade.draw_text("Coordenada x:" + str(self.player_sprite.center_x), self.player_sprite.center_x + 10,
                          self.player_sprite.center_y, arcade.color.WHITE)
         arcade.draw_text("Coordenada y:" + str(self.player_sprite.center_y), self.player_sprite.center_x + 10,
                          self.player_sprite.center_y - 10, arcade.color.WHITE)
+        #Sistema para generar mensajes de entrenadores
+        if(self.mensaje_trainer):
+            if(self.current_room == 4):
+                self.genera_texto("cuadrositiocerrado.png")
+            elif(self.current_room == 5):
+                self.genera_texto("cuadrositiocerrado.png")
+            elif (self.current_room == 6):
+                self.genera_texto("cuadrositiocerrado.png")
+            elif (self.current_room == 7):
+                self.genera_texto("cuadrositiocerrado.png")
+            elif (self.current_room == 8):
+                self.genera_texto("cuadrositiocerrado.png")
+            elif (self.current_room == 9):
+                self.genera_texto("cuadrositiocerrado.png")
+            elif (self.current_room == 10):
+                self.genera_texto("cuadrositiocerrado.png")
+            self.mensaje_trainer = False
 
         # Sistema de texto dinamico para combates fakemon
         if self.current_room == 12:
@@ -646,12 +663,21 @@ class MyGame(arcade.Window):
                     self.contador_combate -= 60
 
         """
+        #Sistema para evitar subir niveles si no ha derrotado al entrenador
+        if(790<=self.player_sprite.center_x<=920 and 375<=self.player_sprite.center_y<=521 and 3<self.current_room<11):
+            self.movimiento = False
+            if(self.contador_mensaje == 0):
+                self.movimiento = True
+                self.player_sprite.center_x -=15
+                self.player_sprite.center_y -=15
+                self.contador_mensaje = 180
+            else: self.contador_mensaje -=1
         # Sistema de vision para los entrenadores y generar sus combate
         if self.current_room == 4 and 361 <= self.player_sprite.center_x <= 503 and 189.5 <= self.player_sprite.center_y <= 329.5 and self.trainer1.no_derrotado:
             self.is_salvaje = False
             # Coords: 402/329.5
             self.movimiento = False
-
+            self.mensaje_trainer = True
             # ERROR Menasje??
             if (self.contador_mensaje == 0):
                 self.current_trainer = self.trainer1
@@ -674,7 +700,7 @@ class MyGame(arcade.Window):
             print("encontrado")
             # Coords: 523/233.5
             self.movimiento = False
-
+            self.mensaje_trainer = True
             # ERROR Menasje??
             if self.contador_mensaje == 0:
                 self.current_trainer = self.trainer2
@@ -697,6 +723,7 @@ class MyGame(arcade.Window):
             print("encontrado")
             # Coords:696/521.5
             self.movimiento = False
+            self.mensaje_trainer = True
             # ERROR Menasje??
             if self.contador_mensaje == 0:
                 self.current_trainer = self.trainer3
@@ -720,6 +747,7 @@ class MyGame(arcade.Window):
             self.is_salvaje = False
             # Coords =
             self.movimiento = False
+            self.mensaje_trainer = True
             # ERROR Menasje??
             if self.contador_mensaje == 0:
                 self.current_trainer = self.trainer4
@@ -741,6 +769,7 @@ class MyGame(arcade.Window):
             self.is_salvaje = False
             # Coords = 523/233.5
             self.movimiento = False
+            self.mensaje_trainer = True
             # ERROR Menasje??
             if self.contador_mensaje == 0:
                 self.current_trainer = self.trainer5
@@ -763,6 +792,7 @@ class MyGame(arcade.Window):
             print("encontrado")
             # Coords: 523/150.5
             self.movimiento = False
+            self.mensaje_trainer = True
             # ERROR Menasje??
             if self.contador_mensaje == 0:
                 self.current_trainer = self.trainer6
@@ -785,6 +815,7 @@ class MyGame(arcade.Window):
             print("encontrado")
             # Coords: 667/104.5
             self.movimiento = False
+            self.mensaje_trainer = True
             # ERROR Menasje??
             if self.contador_mensaje == 0:
                 self.current_trainer = self.trainer7
