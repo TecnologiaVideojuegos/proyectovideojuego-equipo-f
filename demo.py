@@ -111,7 +111,7 @@ class MyGame(arcade.Window):
         ###################Registro de fakemon################################
         # (nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
         path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "ally"
-        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 2, 10, 20, path + os.path.sep + "Pyro.png")
+        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 200, 0, 0, path + os.path.sep + "Pyro.png")
         fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10,
                                           path + os.path.sep + "Cablanta.png")
         fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
@@ -299,9 +299,8 @@ class MyGame(arcade.Window):
 
                         if self.jugador.inventario["Pocion"] > 0 and self.current_ally.HP < self.current_ally.HP_MAX:
 
-                            print("se cura:", str(self.curacion_total))
-                            self.curacion_total = float(self.current_ally.HP_MAX * 1.5)
-                            self.current_ally.HP = self.curacion_total
+                            self.curacion_total = float(self.current_ally.HP_MAX * 0.5)
+                            self.current_ally.HP += self.curacion_total
                             self.pocion = True
 
                             if self.current_ally.HP > self.current_ally.HP_MAX:
