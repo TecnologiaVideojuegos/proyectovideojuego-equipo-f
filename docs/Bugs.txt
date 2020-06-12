@@ -2,5 +2,5 @@
 
 1)Al morir o huir no aparece el mensaje correspondiente.
 2)Al morir/huir y volver al combate no aparece ningun sprite ni datos sobre los enemigos o aliados
-3)En combate reconoce el boton 2, pero no entra en el if aun siendo true
+3)La primera columna a la derecha de la escalera inicial del primer nivel no tiene hitbox
 
