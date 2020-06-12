@@ -736,12 +736,13 @@ def checkeo(jugador, enemigo):
 def checkeo_e(jugador, entrenador):
     aliado = jugador.lista_equipo[0]
     enemigo = entrenador.lista_equipo[0]
+    subir_nivel = False
 
     # Los dos tiene vida
     if aliado.HP > 0 and enemigo.HP > 0:
 
         # El combate continua
-        return False, False, aliado, entrenador
+        return False, False, aliado, enemigo, entrenador, subir_nivel
 
     # El aliado muere
     elif aliado.HP <= 0:
@@ -753,14 +754,14 @@ def checkeo_e(jugador, entrenador):
         if len(jugador.lista_equipo) != 0:
 
             # El combate continua
-            return False, False, jugador.lista_equipo[0], entrenador  # El enemigo se mantiene y el aliado pasa a ser el primero en la lista
+            return False, False, jugador.lista_equipo[0], enemigo, entrenador, subir_nivel  # El enemigo se mantiene y el aliado pasa a ser el primero en la lista
 
         # No quedan mas aliados
         else:
 
             # Pierde el combate, volver al inicio
             print("Pierdes el combate")
-            return True, False, " ", entrenador  # El aliado y el entrenador se mantiene para curar a los fakemons
+            return True, False, " ", " ", entrenador, subir_nivel  # El aliado y el entrenador se mantiene para curar a los fakemons
 
     # El fakemon enemigo esta muerto
     elif enemigo.lista_equipo[0].HP <= 0:
@@ -772,16 +773,18 @@ def checkeo_e(jugador, entrenador):
         aliado.contador_exp = exp(aliado.contador_exp, aliado.nivel, enemigo.nivel)
         if aliado.contador_exp >= aliado.exp_final:
             aliado.subir_nivel()
+            subir_nivel
 
         # Si quedan mas enemigos
         if len(entrenador.lista_equipo) != 0:
-
+            
+            enemigo = entrenador.lista_equipo[0]
             # El combate continua
-            return False, False, aliado, entrenador  # El aliado se mantiene y el enemigo pasa a ser el primero de la lista
+            return False, False, aliado, enemigo, entrenador, subir_nivel  # El aliado se mantiene y el enemigo pasa a ser el primero de la lista
 
         # Si no quedan mas enemigos
         else:
 
             # Gana el combate
             print("Ganas el comabte")
-            return False, True, aliado, entrenador  # El aliado se mantiene y el entrenador desaparecen
+            return False, True, aliado, " ", entrenador, subir_nivel  # El aliado se mantiene y el entrenador desaparecen
