@@ -20,7 +20,7 @@ VIEWPORT_MARGIN_BOTTOM = 60
 VIEWPORT_RIGHT_MARGIN = 270
 VIEWPORT_LEFT_MARGIN = 270
 # MOVEMENT_SPEED = 2 es la velocidad normal
-MOVEMENT_SPEED = 8
+MOVEMENT_SPEED = 5
 
 
 # Juego
@@ -115,7 +115,7 @@ class MyGame(arcade.Window):
         ###################Registro de fakemon################################
         # (nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
         path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "ally"
-        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 2, 10, 10, path + os.path.sep + "Pyro.png")
+        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 200, 100, 100, path + os.path.sep + "Pyro.png")
         self.fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10,
                                           path + os.path.sep + "Cablanta.png")
         self.fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
@@ -439,7 +439,6 @@ class MyGame(arcade.Window):
 
         # Sistema de cuerda huida entre plantas
         if key == arcade.key.Q and self.current_room != 3 and self.jugador.inventario["Cuerda Huida"] != 0 and self.current_room != 12:
-            print("Quedan ", self.jugador.inventrario["Cuerda Huida"], " en tu inventario")
             self.cuerda_huida = True
 
     def on_key_release(self, key, modifiers):
@@ -639,6 +638,7 @@ class MyGame(arcade.Window):
                     print(empieza_combate)
                     self.contador_combate = 120
 
+                    
                     if empieza_combate >= 450:
                         self.mensaje_enemy = ""
                         self.mensaje = ""
@@ -649,13 +649,18 @@ class MyGame(arcade.Window):
                         self.player_sprite.center_y = 80
                         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                                          self.rooms[self.current_room].wall_list)
+                    
                 else:
                     self.contador_combate -= 60
 
+
         # Sistema de vision para los entrenadores y generar sus combate
-        if self.current_room == 4 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer1.no_derrotado:
+        if self.current_room == 4 and 361 <= self.player_sprite.center_x <= 503 and 189.5 <= self.player_sprite.center_y <= 329.5 and self.trainer1.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer1
+            print ("encontrado")
+            #Coords: 402/329.5
+
 
             # ERROR Menasje??
             if (self.contador_mensaje == 0):
@@ -669,11 +674,14 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 5 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer2.no_derrotado:
+
+        elif self.current_room == 5 and 375 <= self.player_sprite.center_x <= 600 and 118 <= self.player_sprite.center_y <= 378.5 and self.trainer2.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer2
-            # ERROR Menasje??
+            print("encontrado")
+            #Coords: ?
 
+            # ERROR Menasje??
             if self.contador_mensaje == 0:
                 self.current_room = 12
                 self.player_sprite.center_x = 500
@@ -685,11 +693,14 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 6 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer3.no_derrotado:
+
+        elif self.current_room == 6 and 656 <= self.player_sprite.center_x <= 791 and 310.5 <= self.player_sprite.center_y <= 521.5 and self.trainer3.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer3
-            # ERROR Menasje??
+            print("encontrado")
+            #Coords:696/521.5
 
+            # ERROR Menasje??
             if self.contador_mensaje == 0:
                 self.current_room = 12
                 self.player_sprite.center_x = 500
@@ -700,10 +711,12 @@ class MyGame(arcade.Window):
 
             else:
                 self.contador_mensaje -= 1
+
 
         elif self.current_room == 7 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer4.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer4
+            #Coords = ?
 
             # ERROR Menasje??
             if self.contador_mensaje == 0:
@@ -717,9 +730,11 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 8 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer5.no_derrotado:
+        elif self.current_room == 8 and 383 <= self.player_sprite.center_x <= 567 and 173.5 <= self.player_sprite.center_y <= 293.5 and self.trainer5.no_derrotado:
+            print("detectado")
             self.is_salvaje = False
             self.current_trainer = self.trainer5
+            #Coords = 523/233.5
 
             # ERROR Menasje??
             if self.contador_mensaje == 0:
@@ -734,9 +749,12 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 9 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer6.no_derrotado:
+
+        elif self.current_room == 9 and 457 <= self.player_sprite.center_x <= 599 and 150.5 <= self.player_sprite.center_y <= 254.5 and self.trainer6.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer6
+            print("encontrado")
+            #Coords: 523/150.5
 
             # ERROR Menasje??
             if self.contador_mensaje == 0:
@@ -750,11 +768,14 @@ class MyGame(arcade.Window):
             else:
                 self.contador_mensaje -= 1
 
-        elif self.current_room == 10 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer7.no_derrotado:
+
+        elif self.current_room == 10 and 557 <= self.player_sprite.center_x <= 735 and 104.5 <= self.player_sprite.center_y <= 254.5 and self.trainer7.no_derrotado:
             self.is_salvaje = False
             self.current_trainer = self.trainer7
+            print("encontrado")
+            #Coords: 667/104.5
+            
             # ERROR Menasje??
-
             if self.contador_mensaje == 0:
                 self.current_room = 12
                 self.player_sprite.center_x = 500
@@ -765,6 +786,7 @@ class MyGame(arcade.Window):
 
             else:
                 self.contador_mensaje -= 1
+
 
         # Sistema para regresar al pueblo con cuerda huida
         if self.cuerda_huida:
