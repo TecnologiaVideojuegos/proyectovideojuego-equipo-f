@@ -3,4 +3,4 @@
 1)Al morir no aparece el mensaje correspondiente.
 2)Al morir y volver al combate no aparece ningun sprite ni textos
 3)La primera columna a la derecha de la escalera inicial del primer nivel no tiene hitbox
-
+4)Añadir mensajes al no poder huir
