@@ -258,9 +258,10 @@ class MyGame(arcade.Window):
                 self.mensaje = "Tras quedarte sin fakemon con los que combatir \n escapas del combate y regresas al pueblo."
                 self.mensaje_enemy = ""
 
-
+            """
             print(self.mensaje)
             print(self.mensaje_enemy)
+            """
             arcade.draw_text(str(self.mensaje), 3, 480, arcade.color.BLACK, 11, 500)
             arcade.draw_text(str(self.mensaje_enemy), 2, 440, arcade.color.BLACK, 11, 500)
 
@@ -355,21 +356,26 @@ class MyGame(arcade.Window):
                 else:
 
                     if key == arcade.key.KEY_1:
+
                         Combate.atacar(self.current_ally, self.current_trainer.lista_equipo[0])
                         self.ally_ataque = True
 
                         print("HP enemigo:" + str(self.current_trainer.lista_equipo[0].HP))
                         print("HP aliado:" + str(self.current_ally.HP))
 
-                        self.has_perdido, self.has_ganado, self.current_ally, self.current_trainer = Combate.checkeo_e(
+                        self.has_perdido, self.has_ganado, self.current_ally,self.current_enemy, self.current_trainer = Combate.checkeo_e(
                             self.jugador, self.current_trainer)
+                        print(self.current_enemy.nombre)
+                        print(self.has_ganado)
+                        print(self.has_perdido)
 
+                        """
                         print("Enemigo: " + self.current_enemy.nombre)
                         print("Aliado: " + self.current_ally.nombre)
 
                         print("Peder: " + str(self.has_perdido))
                         print("Ganar: " + str(self.has_ganado))
-
+                        """
                         # Turno enemigo
                         Combate.atacar(self.current_trainer.lista_equipo[0], self.current_ally)
                         self.enemy_ataque = True
@@ -377,7 +383,7 @@ class MyGame(arcade.Window):
                         print("HP enemigo:" + str(self.current_trainer.lista_equipo[0].HP))
                         print("HP aliado:" + str(self.current_ally.HP))
 
-                        self.has_perdido, self.has_ganado, self.current_ally, self.current_trainer = Combate.checkeo_e(
+                        self.has_perdido, self.has_ganado, self.current_ally,self.current_enemy, self.current_trainer = Combate.checkeo_e(
                             self.jugador, self.current_trainer)
 
                         print("Enemigo: " + self.current_enemy.nombre)
@@ -403,7 +409,7 @@ class MyGame(arcade.Window):
                             print("HP enemigo:" + str(self.current_trainer.lista_equipo[0].HP))
                             print("HP aliado:" + str(self.current_ally.HP))
 
-                            self.has_perdido, self.has_ganado, self.current_ally, self.current_trainer = Combate.checkeo_e(
+                            self.has_perdido, self.has_ganado, self.current_ally,self.current_enemy, self.current_trainer = Combate.checkeo_e(
                                 self.jugador, self.current_trainer)
 
                             print("Enemigo: " + self.current_enemy.nombre)
@@ -628,7 +634,7 @@ class MyGame(arcade.Window):
             self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
             self.player_sprite.center_x = 137
             self.player_sprite.center_y = 438.5
-
+        """
         # Sistema para generar fakemon salvajes dependiendo del piso donde se encuentre
         if 3 < self.current_room < 11:
             if self.player_sprite.change_x == MOVEMENT_SPEED or self.player_sprite.change_y == MOVEMENT_SPEED or self.player_sprite.change_x == -MOVEMENT_SPEED or self.player_sprite.change_y == -MOVEMENT_SPEED:
@@ -653,20 +659,21 @@ class MyGame(arcade.Window):
                 else:
                     self.contador_combate -= 60
 
-
+        """
         # Sistema de vision para los entrenadores y generar sus combate
         if self.current_room == 4 and 361 <= self.player_sprite.center_x <= 503 and 189.5 <= self.player_sprite.center_y <= 329.5 and self.trainer1.no_derrotado:
             self.is_salvaje = False
-            self.current_trainer = self.trainer1
-            print ("encontrado")
             #Coords: 402/329.5
-
+            self.movimiento = False
 
             # ERROR Menasje??
             if (self.contador_mensaje == 0):
+                self.current_trainer = self.trainer1
+                self.current_enemy = self.current_trainer.lista_equipo[0]
                 self.current_room = 12
                 self.player_sprite.center_x = 500
                 self.player_sprite.center_y = 80
+                self.movimiento = True
                 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
                 # ERROR Mensaje??
                 self.contador_mensaje = 180
@@ -677,15 +684,18 @@ class MyGame(arcade.Window):
 
         elif self.current_room == 5 and 375 <= self.player_sprite.center_x <= 600 and 118 <= self.player_sprite.center_y <= 378.5 and self.trainer2.no_derrotado:
             self.is_salvaje = False
-            self.current_trainer = self.trainer2
             print("encontrado")
-            #Coords: ?
+            #Coords: 523/233.5
+            self.movimiento = False
 
             # ERROR Menasje??
             if self.contador_mensaje == 0:
+                self.current_trainer = self.trainer2
+                self.current_enemy = self.current_trainer.lista_equipo[0]
                 self.current_room = 12
                 self.player_sprite.center_x = 500
                 self.player_sprite.center_y = 80
+                self.movimiento = True
                 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
                 # ERROR Mensaje??
                 self.contador_mensaje = 180
@@ -696,15 +706,17 @@ class MyGame(arcade.Window):
 
         elif self.current_room == 6 and 656 <= self.player_sprite.center_x <= 791 and 310.5 <= self.player_sprite.center_y <= 521.5 and self.trainer3.no_derrotado:
             self.is_salvaje = False
-            self.current_trainer = self.trainer3
             print("encontrado")
             #Coords:696/521.5
-
+            self.movimiento = False
             # ERROR Menasje??
             if self.contador_mensaje == 0:
+                self.current_trainer = self.trainer3
+                self.current_enemy = self.current_trainer.lista_equipo[0]
                 self.current_room = 12
                 self.player_sprite.center_x = 500
                 self.player_sprite.center_y = 80
+                self.movimiento = True
                 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
                 # ERROR Mensaje??
                 self.contador_mensaje = 180
@@ -713,16 +725,18 @@ class MyGame(arcade.Window):
                 self.contador_mensaje -= 1
 
 
-        elif self.current_room == 7 and 500 <= self.player_sprite.center_x <= 500 and 500 <= self.player_sprite.center_y <= 500 and self.trainer4.no_derrotado:
+        elif self.current_room == 7 and (457 <= self.player_sprite.center_x <= 727 or  649 <= self.player_sprite.center_x <= 727) and (250 <= self.player_sprite.center_y <= 313 or 55 <= self.player_sprite.center_y <= 313) and self.trainer4.no_derrotado:
             self.is_salvaje = False
-            self.current_trainer = self.trainer4
-            #Coords = ?
-
+            #Coords =
+            self.movimiento = False
             # ERROR Menasje??
             if self.contador_mensaje == 0:
+                self.current_trainer = self.trainer4
+                self.current_enemy = self.current_trainer.lista_equipo[0]
                 self.current_room = 12
                 self.player_sprite.center_x = 500
                 self.player_sprite.center_y = 80
+                self.movimiento = True
                 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
                 # ERROR Mensaje??
                 self.contador_mensaje = 180
@@ -733,14 +747,16 @@ class MyGame(arcade.Window):
         elif self.current_room == 8 and 383 <= self.player_sprite.center_x <= 567 and 173.5 <= self.player_sprite.center_y <= 293.5 and self.trainer5.no_derrotado:
             print("detectado")
             self.is_salvaje = False
-            self.current_trainer = self.trainer5
             #Coords = 523/233.5
-
+            self.movimiento = False
             # ERROR Menasje??
             if self.contador_mensaje == 0:
+                self.current_trainer = self.trainer5
+                self.current_enemy = self.current_trainer.lista_equipo[0]
                 self.current_room = 12
                 self.player_sprite.center_x = 500
                 self.player_sprite.center_y = 80
+                self.movimiento = True
                 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                                  self.rooms[self.current_room].wall_list)
                 # ERROR Mensaje??
@@ -752,15 +768,17 @@ class MyGame(arcade.Window):
 
         elif self.current_room == 9 and 457 <= self.player_sprite.center_x <= 599 and 150.5 <= self.player_sprite.center_y <= 254.5 and self.trainer6.no_derrotado:
             self.is_salvaje = False
-            self.current_trainer = self.trainer6
             print("encontrado")
             #Coords: 523/150.5
-
+            self.movimiento = False
             # ERROR Menasje??
             if self.contador_mensaje == 0:
+                self.current_trainer = self.trainer6
+                self.current_enemy = self.current_trainer.lista_equipo[0]
                 self.current_room = 12
                 self.player_sprite.center_x = 500
                 self.player_sprite.center_y = 80
+                self.movimiento = True
                 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
                 # ERROR Mensaje??
                 self.contador_mensaje = 180
@@ -771,15 +789,17 @@ class MyGame(arcade.Window):
 
         elif self.current_room == 10 and 557 <= self.player_sprite.center_x <= 735 and 104.5 <= self.player_sprite.center_y <= 254.5 and self.trainer7.no_derrotado:
             self.is_salvaje = False
-            self.current_trainer = self.trainer7
             print("encontrado")
             #Coords: 667/104.5
-            
+            self.movimiento = False
             # ERROR Menasje??
             if self.contador_mensaje == 0:
+                self.current_trainer = self.trainer7
+                self.current_enemy = self.current_trainer.lista_equipo[0]
                 self.current_room = 12
                 self.player_sprite.center_x = 500
                 self.player_sprite.center_y = 80
+                self.movimiento = True
                 self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
                 # ERROR Mensaje??
                 self.contador_mensaje = 180
