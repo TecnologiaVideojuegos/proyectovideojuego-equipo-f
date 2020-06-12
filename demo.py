@@ -82,7 +82,7 @@ class MyGame(arcade.Window):
 
         #Sonido
         self.sonido_fallo = arcade.load_sound("resources" + os.path.sep + "sound" + os.path.sep + "Choque de no poder pasar.mp3")
-        self.sonido_Salto = arcade.load_sound("resources" + os.path.sep + "sounf" + os.path.sep + "Salto")
+        self.sonido_Salto = arcade.load_sound("resources" + os.path.sep + "sounf" + os.path.sep + "Salto.mp3")
 
     def setup(self):
         """ Set up the game and initialize the variables. """
