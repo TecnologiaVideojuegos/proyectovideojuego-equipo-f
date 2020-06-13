@@ -1,4 +1,5 @@
 def atacar(atacante, defensor):
+
     if atacante.tipo == "demonio":
         if defensor.tipo == "demonio":  # demonio vs demonio
             if defensor.defensa >= atacante.ataque:
@@ -10,19 +11,19 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "volcanico":  # demonio vs volcanico
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "estelar":  # demonio vs estelar
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "vacio":  # demonio vs vacio
             if defensor.defensa >= atacante.ataque:
@@ -34,14 +35,14 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
     if atacante.tipo == "cometa":
         if defensor.tipo == "demonio":  # cometa vs demonio
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "cometa":  # cometa vs cometa
             if defensor.defensa >= atacante.ataque:
@@ -53,7 +54,7 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "estelar":  # cometa vs estelar
             if defensor.defensa >= atacante.ataque:
@@ -65,26 +66,26 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "lunar":  # cometa vs lunar
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
     if atacante.tipo == "volcanico":
         if defensor.tipo == "demonio":  # volcanico vs demonio
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "cometa":  # volcanico vs cometa
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "volcanico":  # volcanico vs volcanico
             if defensor.defensa >= atacante.ataque:
@@ -96,13 +97,13 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "vacio":  # volcanico vs vacio
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "lunar":  # volcanico vs lunar
             if defensor.defensa >= atacante.ataque:
@@ -116,7 +117,7 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "cometa":  # estelar vs cometa
             if defensor.defensa >= atacante.ataque:
@@ -128,7 +129,7 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "estelar":  # estelar vs  estelar
             if defensor.defensa >= atacante.ataque:
@@ -140,13 +141,13 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "lunar":  # estelar vs  lunar
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
     if atacante.tipo == "vacio":
         if defensor.tipo == "demonio":  # vacio vs demonio
@@ -159,19 +160,19 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "volcanico":  # vacio vs volcanico
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "estelar":  # vacio vs estelar
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "vacio":  # vacio vs vacio
             if defensor.defensa >= atacante.ataque:
@@ -183,20 +184,20 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
     if atacante.tipo == "lunar":
         if defensor.tipo == "demonio":  # lunar vs demonio
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "cometa":  # lunar vs cometa
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "volcanico":  # lunar vs volcanico
             if defensor.defensa >= atacante.ataque:
@@ -208,13 +209,13 @@ def atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 0.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "vacio":  # lunar vs vacio
             if defensor.defensa >= atacante.ataque:
                 defensor.HP -= 1
             else:
-                defensor.HP -= (atacante.ataque - defensor.defensa) * 1.5
+                defensor.HP -= int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "lunar":  # lunar vs lunar
             if defensor.defensa >= atacante.ataque:
@@ -460,19 +461,19 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "volcanico":  # demonio vs volcanico
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "estelar":  # demonio vs estelar
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "vacio":  # demonio vs vacio
             if defensor.defensa >= atacante.ataque:
@@ -484,14 +485,14 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
     if atacante.tipo == "cometa":
         if defensor.tipo == "demonio":  # cometa vs demonio
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "cometa":  # cometa vs cometa
             if defensor.defensa >= atacante.ataque:
@@ -503,7 +504,7 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "estelar":  # cometa vs estelar
             if defensor.defensa >= atacante.ataque:
@@ -515,26 +516,26 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "lunar":  # cometa vs lunar
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
     if atacante.tipo == "volcanico":
         if defensor.tipo == "demonio":  # volcanico vs demonio
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "cometa":  # volcanico vs cometa
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "volcanico":  # volcanico vs volcanico
             if defensor.defensa >= atacante.ataque:
@@ -546,13 +547,13 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "vacio":  # volcanico vs vacio
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "lunar":  # volcanico vs lunar
             if defensor.defensa >= atacante.ataque:
@@ -566,7 +567,7 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "cometa":  # estelar vs cometa
             if defensor.defensa >= atacante.ataque:
@@ -578,7 +579,7 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "estelar":  # estelar vs  estelar
             if defensor.defensa >= atacante.ataque:
@@ -590,13 +591,13 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "lunar":  # estelar vs  lunar
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
     if atacante.tipo == "vacio":
         if defensor.tipo == "demonio":  # vacio vs demonio
@@ -609,19 +610,19 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "volcanico":  # vacio vs volcanico
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "estelar":  # vacio vs estelar
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "vacio":  # vacio vs vacio
             if defensor.defensa >= atacante.ataque:
@@ -633,20 +634,20 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
     if atacante.tipo == "lunar":
         if defensor.tipo == "demonio":  # lunar vs demonio
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "cometa":  # lunar vs cometa
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "volcanico":  # lunar vs volcanico
             if defensor.defensa >= atacante.ataque:
@@ -658,13 +659,13 @@ def num_atacar(atacante, defensor):
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 0.5
+                return int((atacante.ataque - defensor.defensa) * 0.5)
 
         elif defensor.tipo == "vacio":  # lunar vs vacio
             if defensor.defensa >= atacante.ataque:
                 return 1
             else:
-                return (atacante.ataque - defensor.defensa) * 1.5
+                return int((atacante.ataque - defensor.defensa) * 1.5)
 
         elif defensor.tipo == "lunar":  # lunar vs lunar
             if defensor.defensa >= atacante.ataque:

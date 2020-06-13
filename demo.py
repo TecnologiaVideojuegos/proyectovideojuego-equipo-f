@@ -19,7 +19,7 @@ VIEWPORT_MARGIN_TOP = 60
 VIEWPORT_MARGIN_BOTTOM = 60
 VIEWPORT_RIGHT_MARGIN = 270
 VIEWPORT_LEFT_MARGIN = 270
-# MOVEMENT_SPEED = 2 es la velocidad normal
+# MOVEMENT_SPEED = 3 es la velocidad normal
 MOVEMENT_SPEED = 5
 
 
@@ -57,6 +57,7 @@ class MyGame(arcade.Window):
         self.cuerda_huida = False
         self.movimiento = True
         self.mensaje_trainer = False
+        self.no_pasar =  False
         self.mensaje = ""
         self.mensaje_enemy = ""
         # Variables globales para el combate
@@ -72,6 +73,7 @@ class MyGame(arcade.Window):
         self.fallo_huida = False
         self.no_huida = False
         self.subir_nivel = False
+
         self.current_trainer = ""
         self.current_enemy = ""
         self.current_ally = ""
@@ -116,7 +118,7 @@ class MyGame(arcade.Window):
         ###################Registro de fakemon################################
         # (nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
         path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "ally"
-        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 200, 100, 100, path + os.path.sep + "Pyro.png")
+        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 10, 1, 1, path + os.path.sep + "Pyro.png")
         self.fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10,
                                                path + os.path.sep + "Cablanta.png")
         self.fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
@@ -184,7 +186,8 @@ class MyGame(arcade.Window):
                 self.player_sprite.center_x >= 73 and self.player_sprite.center_x <= 97) and self.player_sprite.center_y == 585.5:
             self.genera_texto("cuadrositiocerrado.png")
 
-
+        if(self.no_pasar):
+            self.genera_texto("no_pasar.png")
 
         # Mapa de coordenadas utilizado para saber la dirección
         arcade.draw_text("Coordenada x:" + str(self.player_sprite.center_x), self.player_sprite.center_x + 10,
@@ -215,7 +218,7 @@ class MyGame(arcade.Window):
                              arcade.color.BLACK, 12)
             arcade.draw_text(
                 str(self.current_ally.HP) + "/" + str(
-                    self.current_ally.HP_MAX) + "                    " + self.current_ally.tipo + "                    " + str(
+                    self.current_ally.HP_MAX) + "                    " + self.current_ally.tipo + "               " + str(
                     self.current_ally.contador_exp) + "/" + str(self.current_ally.exp_final), 534,
                 223, arcade.color.BLACK, 12)
 
@@ -249,10 +252,9 @@ class MyGame(arcade.Window):
                 self.enemy_ataque = False
 
             if self.pocion:
-                self.mensaje = self.current_ally.nombre + " se ha curado " + str(
-                    self.curacion_total) + " gastando una poción en el proceso(" \
+                self.mensaje = self.current_ally.nombre + " se ha curado " + str(int(self.current_ally.HP_MAX*0.5)
+                    ) + " gastando una poción en el proceso(" \
                                + str(self.jugador.inventario['Pocion']) + ")"
-                self.curacion_total = 0
                 self.pocion = False
 
             if self.cambio:
@@ -274,7 +276,7 @@ class MyGame(arcade.Window):
                 self.mensaje_enemy = ""
 
                 if self.subir_nivel:
-                    self.mensaje_enemy = self.current_ally.nombre + " acaba de subir a nivel" + str(
+                    self.mensaje_enemy = self.current_ally.nombre + " acaba de subir a nivel " + str(
                         self.current_ally.nivel) + "\n volviendose más fuerte"
 
             if self.has_perdido:
@@ -286,14 +288,18 @@ class MyGame(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         # Sistema de movimiento
-        if key == arcade.key.W and self.movimiento:
-            self.player_sprite.change_y = MOVEMENT_SPEED
-        if key == arcade.key.A and self.movimiento:
-            self.player_sprite.change_x = -MOVEMENT_SPEED
-        if key == arcade.key.S and self.movimiento:
-            self.player_sprite.change_y = -MOVEMENT_SPEED
-        if key == arcade.key.D and self.movimiento:
-            self.player_sprite.change_x = MOVEMENT_SPEED
+        if(self.movimiento):
+            if key == arcade.key.W:
+                self.player_sprite.change_y = MOVEMENT_SPEED
+            if key == arcade.key.A:
+                self.player_sprite.change_x = -MOVEMENT_SPEED
+            if key == arcade.key.S:
+                self.player_sprite.change_y = -MOVEMENT_SPEED
+            if key == arcade.key.D:
+                self.player_sprite.change_x = MOVEMENT_SPEED
+        elif(self.movimiento == False):
+            self.player_sprite.change_x = 0
+            self.player_sprite.change_y = 0
         # Sistema para pantalla completa
         if key == arcade.key.F:
             self.set_fullscreen(not self.fullscreen)
@@ -324,8 +330,8 @@ class MyGame(arcade.Window):
 
                         if self.jugador.inventario["Pocion"] > 0 and self.current_ally.HP < self.current_ally.HP_MAX:
 
-                            self.curacion_total = float(self.current_ally.HP_MAX * 0.5)
-                            self.current_ally.HP += self.curacion_total
+
+                            self.current_ally.HP += int(self.current_ally.HP_MAX*0.5)
                             self.pocion = True
 
                             if self.current_ally.HP > self.current_ally.HP_MAX:
@@ -398,7 +404,7 @@ class MyGame(arcade.Window):
 
                     if key == arcade.key.KEY_2:
                         if self.jugador.inventario["Pocion"] > 0 and self.current_ally.HP < self.current_ally.HP_MAX:
-                            self.current_ally.HP = int(self.current_ally.HP * 1.5)
+                            self.current_ally.HP = int(self.current_ally.HP_MAX * 0.5)
                             self.pocion = True
                             if self.current_ally.HP > self.current_ally.HP_MAX:
                                 self.current_ally.HP = self.current_ally.HP_MAX
@@ -426,20 +432,15 @@ class MyGame(arcade.Window):
 
                     if key == arcade.key.KEY_4:
                         self.no_huida = True
-                        print("No puedes huir en combates contra entrenadores")
 
         # Sistema de tiendas
         if self.current_room == 3 and self.player_sprite.center_x == 745 and self.player_sprite.center_y == 649.5:
             if key == arcade.key.KEY_1 and self.jugador.dinero >= 50:
-                print("Comprado Pocion")
                 self.jugador.restar_dinero(50)
                 self.jugador.inventario["Pocion"] += 1
-                print(str(self.jugador.inventario["Pocion"]))
             if key == arcade.key.KEY_2 and self.jugador.dinero >= 100:
-                print("Comprado Cuerda Huida")
                 self.jugador.restar_dinero(100)
                 self.jugador.inventario['Cuerda Huida'] += 1
-                print(str(self.jugador.inventario['Cuerda Huida']))
 
         # Sistema de cuerda huida entre plantas
         if key == arcade.key.Q and self.current_room != 3 and self.jugador.inventario[
@@ -469,7 +470,6 @@ class MyGame(arcade.Window):
         if self.has_ganado:
             self.movimiento = False
 
-            print(str(self.contador_mensaje))
             if self.contador_mensaje == 0:
                 self.current_room = self.top_rooom
                 self.jugador.dinero += 150
@@ -557,6 +557,7 @@ class MyGame(arcade.Window):
 
                 self.movimiento = True
                 self.current_enemy = ""
+                #Erro aqui???
                 self.current_trainer = ""
                 self.is_salvaje = False
                 self.has_perdido = False
@@ -637,7 +638,7 @@ class MyGame(arcade.Window):
                                                              self.rooms[self.current_room].wall_list)
             self.player_sprite.center_x = 137
             self.player_sprite.center_y = 438.5
-        """
+        
         # Sistema para generar fakemon salvajes dependiendo del piso donde se encuentre
         if 3 < self.current_room < 11:
             if self.player_sprite.change_x == MOVEMENT_SPEED or self.player_sprite.change_y == MOVEMENT_SPEED or self.player_sprite.change_x == -MOVEMENT_SPEED or self.player_sprite.change_y == -MOVEMENT_SPEED:
@@ -662,17 +663,36 @@ class MyGame(arcade.Window):
                 else:
                     self.contador_combate -= 60
 
-        """
+
         #Sistema para evitar subir niveles si no ha derrotado al entrenador
-        if(790<=self.player_sprite.center_x<=920 and 375<=self.player_sprite.center_y<=521 and 3<self.current_room<11):
-            self.movimiento = False
-            if(self.contador_mensaje == 0):
-                self.movimiento = True
-                self.player_sprite.center_x -=15
-                self.player_sprite.center_y -=15
-                self.contador_mensaje = 180
-            else: self.contador_mensaje -=1
-        # Sistema de vision para los entrenadores y generar sus combate
+        if(790<=self.player_sprite.center_x<=920 and 350<=self.player_sprite.center_y<=521 and 3<self.current_room<11):
+            if(self.current_room == 4 and self.trainer1.no_derrotado):
+                trainer = self.trainer1
+            elif (self.current_room == 5 and self.trainer2.no_derrotado):
+                trainer = self.trainer2
+            elif(self.current_room == 6 and self.trainer3.no_derrotado):
+                trainer = self.trainer3
+            elif (self.current_room == 7 and self.trainer4.no_derrotado):
+                trainer = self.trainer4
+            elif (self.current_room == 8 and self.trainer5.no_derrotado):
+                trainer = self.trainer5
+            elif(self.current_room == 9 and self.trainer6.no_derrotado):
+                trainer = self.trainer6
+            elif (self.current_room == 10 and self.trainer7.no_derrotado):
+                trainer = self.trainer7
+            else: trainer = ""
+            if(trainer !="" and trainer.no_derrotado):
+                self.movimiento = False
+                self.no_pasar = True
+                if(self.contador_mensaje == 0):
+                    self.movimiento = True
+                    self.no_pasar = False
+                    self.player_sprite.center_x -=30
+                    self.player_sprite.center_y -=30
+                    self.contador_mensaje = 180
+                else: self.contador_mensaje -=1
+
+        # Sistema de vision para los entrenadores y genferar sus combate
         if self.current_room == 4 and 361 <= self.player_sprite.center_x <= 503 and 189.5 <= self.player_sprite.center_y <= 329.5 and self.trainer1.no_derrotado:
             self.is_salvaje = False
             # Coords: 402/329.5
