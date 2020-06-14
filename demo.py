@@ -20,7 +20,7 @@ VIEWPORT_MARGIN_BOTTOM = 60
 VIEWPORT_RIGHT_MARGIN = 270
 VIEWPORT_LEFT_MARGIN = 270
 # MOVEMENT_SPEED = 3 es la velocidad normal
-MOVEMENT_SPEED = 5
+MOVEMENT_SPEED = 6
 
 
 # Juego
@@ -118,7 +118,7 @@ class MyGame(arcade.Window):
         ###################Registro de fakemon################################
         # (nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
         path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "ally"
-        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 10, 1, 1, path + os.path.sep + "Pyro.png")
+        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 2000, 100, 100, path + os.path.sep + "Pyro.png")
         self.fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10,
                                                path + os.path.sep + "Cablanta.png")
         self.fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
@@ -545,6 +545,9 @@ class MyGame(arcade.Window):
                         fakemon_muerto.HP = fakemon_muerto.HP_MAX
                         self.current_trainer.lista_equipo.append(fakemon_muerto)
 
+                    for fakemon_herido in self.current_trainer.lista_equipo:
+                        fakemon_herido.HP = fakemon_herido.HP_MAX
+
                 for fakemon_muerto in self.jugador.lista_muertos:
                     fakemon_muerto.HP = fakemon_muerto.HP_MAX
                     self.jugador.lista_equipo.append(fakemon_muerto)
@@ -558,10 +561,13 @@ class MyGame(arcade.Window):
                 self.movimiento = True
                 self.current_enemy = ""
                 #Erro aqui???
+                self.mensaje = ""
+                self.mensaje_enemy = ""
                 self.current_trainer = ""
                 self.is_salvaje = False
                 self.has_perdido = False
                 self.contador_mensaje = 180
+
 
             else:
                 self.contador_mensaje -= 1
@@ -638,7 +644,7 @@ class MyGame(arcade.Window):
                                                              self.rooms[self.current_room].wall_list)
             self.player_sprite.center_x = 137
             self.player_sprite.center_y = 438.5
-        
+
         # Sistema para generar fakemon salvajes dependiendo del piso donde se encuentre
         if 3 < self.current_room < 11:
             if self.player_sprite.change_x == MOVEMENT_SPEED or self.player_sprite.change_y == MOVEMENT_SPEED or self.player_sprite.change_x == -MOVEMENT_SPEED or self.player_sprite.change_y == -MOVEMENT_SPEED:
@@ -662,7 +668,6 @@ class MyGame(arcade.Window):
 
                 else:
                     self.contador_combate -= 60
-
 
         #Sistema para evitar subir niveles si no ha derrotado al entrenador
         if(790<=self.player_sprite.center_x<=920 and 350<=self.player_sprite.center_y<=521 and 3<self.current_room<11):
