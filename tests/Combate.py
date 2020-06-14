@@ -704,7 +704,7 @@ def checkeo(jugador, enemigo):
     elif aliado.HP <= 0:
 
         # El fakemon muere
-        aliado.HP == 0
+        aliado.HP = 0
 
         jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
@@ -743,7 +743,6 @@ def checkeo_e(jugador, entrenador):
     enemigo = entrenador.lista_equipo[0]
     subir_nivel = False
 
-    for pokemon in entrenador.lista_equipo: print(pokemon.nombre)
 
     # Los dos tiene vida
     if aliado.HP > 0 and enemigo.HP > 0:
@@ -753,8 +752,6 @@ def checkeo_e(jugador, entrenador):
 
     # El aliado muere
     elif aliado.HP <= 0:
-
-        aliado.HP = 0
 
         jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
@@ -767,9 +764,6 @@ def checkeo_e(jugador, entrenador):
 
         # No quedan mas aliados
         else:
-
-            aliado = jugador.lista_muertos[0]
-            aliado.HP = 0
 
             # Pierde el combate, volver al inicio
             return True, False, aliado, enemigo, entrenador, subir_nivel  # El aliado y el entrenador se mantiene para curar a los fakemons
@@ -784,6 +778,7 @@ def checkeo_e(jugador, entrenador):
 
         # Suma experiencia
         aliado.contador_exp = exp(aliado.contador_exp, aliado.nivel, enemigo.nivel)
+
         if aliado.contador_exp >= aliado.exp_final:
             aliado.subir_nivel()
             subir_nivel = True
@@ -792,14 +787,12 @@ def checkeo_e(jugador, entrenador):
         if len(entrenador.lista_equipo) != 0:
 
             enemigo = entrenador.lista_equipo[0]
-
             # El combate continua
             return False, False, aliado, enemigo, entrenador, subir_nivel  # El aliado se mantiene y el enemigo pasa a ser el primero de la lista
 
         # Si no quedan mas enemigos
         else:
 
-            enemigo = entrenador.lista_muertos[0]
             enemigo.HP = 0
 
             # Gana el combate
