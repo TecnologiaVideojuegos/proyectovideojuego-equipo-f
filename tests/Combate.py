@@ -704,6 +704,8 @@ def checkeo(jugador, enemigo):
     elif aliado.HP <= 0:
 
         # El fakemon muere
+        aliado.HP == 0
+
         jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
 
@@ -717,12 +719,14 @@ def checkeo(jugador, enemigo):
         # Si no quedan mas pokemon
         else:
 
+            jugador.lista_muertos[0].HP = 0
             # Pierde el combate, volver al inicio
-            return True, False, " ", subir_nivel  # El enemigo y el aliado desaparecen
+            return True, False, jugador.lista_muertos[0], subir_nivel  # El enemigo y el aliado desaparecen
 
     # El enemigo ha muerto
     elif enemigo.HP <= 0:
 
+        enemigo.HP = 0
         # Gana el combate
         # Suma experiencia
         aliado.contador_exp = exp(aliado.contador_exp, aliado.nivel, enemigo.nivel)
@@ -750,6 +754,8 @@ def checkeo_e(jugador, entrenador):
     # El aliado muere
     elif aliado.HP <= 0:
 
+        aliado.HP = 0
+
         jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
 
@@ -762,11 +768,16 @@ def checkeo_e(jugador, entrenador):
         # No quedan mas aliados
         else:
 
+            aliado = jugador.lista_muertos[0]
+            aliado.HP = 0
+
             # Pierde el combate, volver al inicio
             return True, False, aliado, enemigo, entrenador, subir_nivel  # El aliado y el entrenador se mantiene para curar a los fakemons
 
     # El fakemon enemigo esta muerto
     elif enemigo.HP <= 0:
+
+        enemigo.HP = 0
 
         entrenador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         entrenador.lista_equipo.pop(0)  # Retirar del equipo de aliado
@@ -787,6 +798,9 @@ def checkeo_e(jugador, entrenador):
 
         # Si no quedan mas enemigos
         else:
+
+            enemigo = entrenador.lista_muertos[0]
+            enemigo.HP = 0
 
             # Gana el combate
             return False, True, aliado, enemigo, entrenador, subir_nivel  # El aliado se mantiene y el entrenador desaparecen
