@@ -21,3 +21,12 @@ class Entrenador:
         self.lista_equipo = []
         self.lista_muertos = []
         self.no_derrotado = True # Variable usada unicamente en entrenadores enemigos para comprobar si han sido derrotados
+
+
+    def restar_dinero(self, cantidad):
+        """
+        Resta dinero del jugador al realizar una compra
+        :param cantidad: cantidad de dinero a retirar
+        """
+        self.dinero -= cantidad
+        if self.dinero <= 0: self.dinero = 0 # Evita tener dinero negativo
