@@ -3,8 +3,9 @@ import os
 import arcade
 import random
 # Librerias internas
-from tests import Combate, Optimizar, Objeto_Pokemon, Objeto_Entrenador
-from tests.Optimizar import habitaciones, texturas_jugador
+from Funciones import Combate, Optimizar, Objeto_Pokemon, Objeto_Entrenador
+from Funciones.Generar_Fakemon import nuevo_salvaje
+from Funciones.Optimizar import habitaciones, texturas_jugador
 
 WIDTH = 800
 HEIGHT = 600
@@ -16,8 +17,7 @@ VIEWPORT_MARGIN_TOP = 60
 VIEWPORT_MARGIN_BOTTOM = 60
 VIEWPORT_RIGHT_MARGIN = 270
 VIEWPORT_LEFT_MARGIN = 270
-# MOVEMENT_SPEED = 3 es la velocidad normal
-MOVEMENT_SPEED = 5
+MOVEMENT_SPEED = 3
 
 
 # Juego
@@ -102,7 +102,7 @@ class MyGame(arcade.Window):
         self.mensaje = ""
         self.mensaje_enemy = ""
         # Posición de inicio del jugador
-        # 62 ,100
+
         self.player_sprite.center_x = 73
         self.player_sprite.center_y = 86.5
 
@@ -117,11 +117,11 @@ class MyGame(arcade.Window):
         ###################Registro de fakemon################################
         # (nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
         path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "ally"
-        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 2000, 100, 100, path + os.path.sep + "Pyro.png")
-        self.fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10,
+        fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico",1,10,25,12,5, path + os.path.sep + "Pyro.png")
+        self.fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar",14,220,149,73,40,
                                                path + os.path.sep + "Cablanta.png")
-        self.fakemon3 = Objeto_Pokemon.Fakemon("Romeu", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
-        self.fakemon4 = Objeto_Pokemon.Fakemon("Sargrey", "lunar", 30, 20, 200, 10, 10,
+        self.fakemon3 = Objeto_Pokemon.Fakemon("Romeu", "vacio",25,450,204,106,62, path + os.path.sep + "Romeu.png")
+        self.fakemon4 = Objeto_Pokemon.Fakemon("Sargrey", "lunar",36,880,259,139,84,
                                                path + os.path.sep + "Sargrey.png")
 
         ###################Registro de entrenadores################################
@@ -205,12 +205,6 @@ class MyGame(arcade.Window):
         if(self.no_pasar):
             self.genera_texto("no_pasar.png")
             self.no_pasar = False
-
-        # Mapa de coordenadas utilizado para saber la dirección
-        arcade.draw_text("Coordenada x:" + str(self.player_sprite.center_x), self.player_sprite.center_x + 10,
-                         self.player_sprite.center_y, arcade.color.WHITE)
-        arcade.draw_text("Coordenada y:" + str(self.player_sprite.center_y), self.player_sprite.center_x + 10,
-                         self.player_sprite.center_y - 10, arcade.color.WHITE)
 
         #Sistema para generar mensajes de entrenadores
         if(self.mensaje_trainer):
@@ -670,7 +664,7 @@ class MyGame(arcade.Window):
                                                              self.rooms[self.current_room].wall_list)
             self.player_sprite.center_x = 137
             self.player_sprite.center_y = 438.5
-        """
+
         # Sistema para generar fakemon salvajes dependiendo del piso donde se encuentre
         if 3 < self.current_room < 11:
             if self.player_sprite.change_x == MOVEMENT_SPEED or self.player_sprite.change_y == MOVEMENT_SPEED or self.player_sprite.change_x == -MOVEMENT_SPEED or self.player_sprite.change_y == -MOVEMENT_SPEED:
@@ -722,7 +716,7 @@ class MyGame(arcade.Window):
                     self.player_sprite.center_y -=30
                     self.contador_mensaje = 180
                 else: self.contador_mensaje -=1
-        """
+
         # Sistema de vision para los entrenadores y genferar sus combate
         if self.current_room == 4 and 361 <= self.player_sprite.center_x <= 730 and 189.5 <= self.player_sprite.center_y <= 329.5 and self.trainer1.no_derrotado:
             self.is_salvaje = False

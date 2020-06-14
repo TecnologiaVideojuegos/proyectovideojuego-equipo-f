@@ -1,6 +1,7 @@
 import random
-import Objeto_Pokemon
 import os
+
+from Funciones import Objeto_Pokemon
 
 
 def bonificacion(fakemon):
@@ -54,7 +55,7 @@ def subir_estadisticas(nivel, HP_MAX, ataque, defensa):
             ataque *= 1.23
             defensa *= 1.27
     #Para nivel entre 10 y 40
-    elif 10 < nivel < 40:
+    elif 10 < nivel <= 40:
         # Subimos las estadisticas de los primeros 10 niveles
         for i in range(1, 10):
             HP_MAX *= 1.205
@@ -75,8 +76,8 @@ def nuevo_salvaje(room):
     
     # Clave(nombre), Contenido(Dirección imagen)
     diccionario_fakemon = {"Cablanta":"Cablanta", "Cablanta Shiny": "Cablanta Shiny", "Pyro": "Pyro"
-        , "Oryp": "Oryp", "Sarzul": "Sarzul", "Sargrey": "Sargrey", "": "", "": "",
-                           "": "", "": "", "": "", "": ""}
+        , "Oryp": "Oryp", "Sarzul": "Sarzul", "Sargrey": "Sargrey","Raziel": "Raziel", "Romeu": "Romeu", "Vacivus": "Vacivus",
+                            "Fhenou": "Fhenou", "Curmtop": "Curmtop", "Dodkei": "Dodkei"}
     
     # valores estadisticas bases (lvl 1)
     HP_MAX = random.randint(20, 25)  # random 20-25 vida inicial
@@ -101,7 +102,7 @@ def nuevo_salvaje(room):
     
     # nivel2
     elif room == 5:
-        lista_fakemon2 = {"": "volcanico", "Pyro": "volcanico"} # Fakemons posibles
+        lista_fakemon2 = {"Raziel": "volcanico", "Pyro": "volcanico"} # Fakemons posibles
         nombre = random.choice(list(lista_fakemon2.keys())) #Se elige aleatoriamente uno
         
         # Se le otorgan estadísticas
@@ -119,7 +120,7 @@ def nuevo_salvaje(room):
     
     # nivel3
     elif room == 6:
-        lista_fakemon3 = {"Oryp": "demonio", "": "demonio"} # Fakemons posibles
+        lista_fakemon3 = {"Oryp": "demonio", "Dodkei": "demonio"} # Fakemons posibles
         nombre = random.choice(list(lista_fakemon3.keys())) #Se elige aleatoriamente uno
 
         # Se le otorgan estadísticas
@@ -137,7 +138,7 @@ def nuevo_salvaje(room):
     
     # nivel4
     elif room == 7:
-        lista_fakemon4 = {"": "vacio", "": "vacio", "": "cometa","":"cometa"} # Fakemons posibles
+        lista_fakemon4 = {"Romeu": "vacio", "Vacivus": "vacio", "Fhenou": "cometa","Curmtop":"cometa"} # Fakemons posibles
         nombre = random.choice(list(lista_fakemon4.keys())) #Se elige aleatoriamente uno
 
         # Se le otorgan estadísticas
@@ -155,7 +156,7 @@ def nuevo_salvaje(room):
     
     # nivel5
     elif room == 8:
-        lista_fakemon5 = {"": "cometa", "": "cometa", "Cablanta Shiny": "lunar","Sargrey":"lunar"} # Fakemons posibles
+        lista_fakemon5 = {"Fhenou": "cometa", "Curmtop": "cometa", "Cablanta Shiny": "lunar","Sargrey":"lunar"} # Fakemons posibles
         nombre = random.choice(list(lista_fakemon5.keys())) #Se elige aleatoriamente uno
 
         # Se le otorgan estadísticas
@@ -170,7 +171,7 @@ def nuevo_salvaje(room):
         return fakemon
     # nivel6
     elif room == 9:
-        lista_fakemon6 = {"Sargrey": "lunar", "Cablanta Shiny": "lunar", "": "cometa", "": "cometa", "Cablanta": "estelar", "Sarzul": "estelar"} # Fakemons posibles
+        lista_fakemon6 = {"Sargrey": "lunar", "Cablanta Shiny": "lunar", "Fhenou": "cometa", "Curmtop": "cometa", "Cablanta": "estelar", "Sarzul": "estelar"} # Fakemons posibles
         nombre = random.choice(list(lista_fakemon6.keys())) #Se elige aleatoriamente uno
 
         # Se le otorgan estadísticas
@@ -189,8 +190,8 @@ def nuevo_salvaje(room):
     # nivel7
     elif room == 10:
         lista_fakemon7 = {"Cablanta": "estelar", "Sarzul": "estelar", "Pyro": "volcanico"
-            , "": "volcanico", "Oryp": "demonio", "": "demonio", "": "cometa", "": "cometa",
-                               "": "vacio", "": "vacio", "Sargrey": "lunar", "Cablanta Shiny": "lunar"} # Fakemons posibles
+            , "Raziel": "volcanico", "Oryp": "demonio", "Dodkei": "demonio", "Fhenou": "cometa", "Curmtop": "cometa",
+                               "Romeu": "vacio", "Vacivus": "vacio", "Sargrey": "lunar", "Cablanta Shiny": "lunar"} # Fakemons posibles
         nombre = random.choice(list(lista_fakemon7.keys())) #Se elige aleatoriamente uno
 
         # Se le otorgan estadísticas
