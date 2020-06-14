@@ -753,6 +753,8 @@ def checkeo_e(jugador, entrenador):
     # El aliado muere
     elif aliado.HP <= 0:
 
+        aliado.HP = 0
+
         jugador.lista_muertos.append(jugador.lista_equipo[0])  # Meter en la lista de muertos
         jugador.lista_equipo.pop(0)  # Retirar del equipo de aliado
 
