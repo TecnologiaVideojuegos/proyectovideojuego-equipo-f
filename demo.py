@@ -3,9 +3,7 @@ import os
 import arcade
 import random
 # Librerias internas
-import Objeto_Entrenador
-import Objeto_Pokemon
-from tests import Combate, Optimizar
+from tests import Combate, Optimizar, Objeto_Pokemon, Objeto_Entrenador
 from tests.Optimizar import habitaciones, texturas_jugador
 
 WIDTH = 800
@@ -105,14 +103,14 @@ class MyGame(arcade.Window):
         self.mensaje_enemy = ""
         # Posición de inicio del jugador
         # 62 ,100
-        self.player_sprite.center_x = 100
-        self.player_sprite.center_y = 100
+        self.player_sprite.center_x = 73
+        self.player_sprite.center_y = 86.5
 
         self.player_list.append(self.player_sprite)
 
         # Sistema de habitaciones
         self.top_rooom = 4
-        self.current_room = 10
+        self.current_room = 0
         self.rooms = habitaciones()
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
 
@@ -188,19 +186,19 @@ class MyGame(arcade.Window):
             self.genera_texto("cuadrositiocerrado.png")
 
         #Cuadros de texto cuando vences a un entrenador
-        if(self.current_room == 4 and self.player_sprite.center_x ==393 and self.player_sprite.center_y==246.5):
+        if(self.current_room == 4 and self.player_sprite.center_x ==393 and self.player_sprite.center_y==246.5 and self.trainer1.no_derrotado == False):
             self.genera_texto("victoria_trainer1.png")
-        elif(self.current_room == 5 and self.player_sprite.center_x ==479 and self.player_sprite.center_y==137.5):
+        elif(self.current_room == 5 and self.player_sprite.center_x ==479 and self.player_sprite.center_y==137.5 and self.trainer2.no_derrotado == False):
             self.genera_texto("victoria_trainer_fakemon2.png")
-        elif(self.current_room == 6 and self.player_sprite.center_x ==713 and self.player_sprite.center_y==457.5):
+        elif(self.current_room == 6 and self.player_sprite.center_x ==713 and self.player_sprite.center_y==457.5 and self.trainer3.no_derrotado == False):
             self.genera_texto("victoria_trainer3.png")
-        elif(self.current_room == 7 and self.player_sprite.center_x ==663 and self.player_sprite.center_y==278.5):
+        elif(self.current_room == 7 and self.player_sprite.center_x ==663 and self.player_sprite.center_y==278.5 and self.trainer4.no_derrotado == False):
             self.genera_texto("victoria_trainer_fakemon4.png")
-        elif(self.current_room == 8 and self.player_sprite.center_x ==527 and self.player_sprite.center_y==233.5):
+        elif(self.current_room == 8 and self.player_sprite.center_x ==527 and self.player_sprite.center_y==233.5 and self.trainer5.no_derrotado == False):
             self.genera_texto("victoria_trainer5.png")
-        elif(self.current_room == 9 and self.player_sprite.center_x ==631 and self.player_sprite.center_y==241.5):
+        elif(self.current_room == 9 and self.player_sprite.center_x ==631 and self.player_sprite.center_y==241.5 and self.trainer6.no_derrotado == False):
             self.genera_texto("victoria_trainer_fakemon6.png")
-        elif(self.current_room == 10 and self.player_sprite.center_x ==511 and self.player_sprite.center_y==233):
+        elif(self.current_room == 10 and self.player_sprite.center_x ==511 and self.player_sprite.center_y==233 and self.trainer7.no_derrotado == False):
             self.genera_texto("victoria_ultimo.png")
 
         #Cuadro de texto para cuando no derrotaste al entrenador de la planta
@@ -305,7 +303,7 @@ class MyGame(arcade.Window):
                 self.mensaje_enemy = ""
 
             arcade.draw_text(str(self.mensaje), 3, 480, arcade.color.BLACK, 11, 500)
-            arcade.draw_text(str(self.mensaje_enemy), 2, 440, arcade.color.BLACK, 11, 500)
+            arcade.draw_text(str(self.mensaje_enemy), 1, 440, arcade.color.BLACK, 11, 500)
 
     def on_key_press(self, key, modifiers):
         # Sistema de movimiento
@@ -584,7 +582,6 @@ class MyGame(arcade.Window):
 
                 self.movimiento = True
                 self.current_enemy = ""
-                #Erro aqui???
                 self.mensaje = ""
                 self.mensaje_enemy = ""
                 self.current_trainer = ""
@@ -601,13 +598,18 @@ class MyGame(arcade.Window):
             self.top_rooom = self.current_room
 
         # Carga el piso desde el titulo del juego hasta la planta 3
-        if self.current_room == 0 or self.current_room == 1 and 1140 <= self.player_sprite.center_x <= 1143 and 54.5 <= self.player_sprite.center_y <= 74:
-            self.current_room += 1
-            self.player_sprite.center_x = 62
-            self.player_sprite.center_y = 100
+        if self.current_room == 0  and self.player_sprite.center_x == 439 and  86.5 <= self.player_sprite.center_y <= 105.5:
+            self.current_room = 1
+            self.player_sprite.center_x = 430
+            self.player_sprite.center_y = 620
             self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
                                                              self.rooms[self.current_room].wall_list)
-
+        if self.current_room == 1 and 280 <= self.player_sprite.center_x <= 440 and 130 <= self.player_sprite.center_y <= 230:
+            self.current_room = 2
+            self.player_sprite.center_x = 200
+            self.player_sprite.center_y = 200
+            self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite,
+                                                             self.rooms[self.current_room].wall_list)
         if self.current_room == 2 and 983 <= self.player_sprite.center_x and 169 <= self.player_sprite.center_y <= 201:
             self.current_room = 3
             self.player_sprite.center_x = 84
@@ -651,8 +653,8 @@ class MyGame(arcade.Window):
                 self.player_sprite.center_y = 438.5
 
             elif self.top_rooom == 11:
-                self.player_sprite.center_x = 137
-                self.player_sprite.center_y = 438.5
+                self.player_sprite.center_x = 707
+                self.player_sprite.center_y = 448.5
 
         # Carga el piso del pueblo al salir de la torre
         if self.player_sprite.center_x == 183 and self.player_sprite.center_y == 438.5:

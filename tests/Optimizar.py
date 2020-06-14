@@ -2,7 +2,7 @@ import os
 import arcade
 
 # La clase room es aquella clase que crea los escenarios donde se desplaza el jugador
-import Objeto_Pokemon
+from tests import Objeto_Pokemon
 
 
 class Room:
@@ -39,10 +39,10 @@ def setup_nivel(nivel):
 def habitaciones():
     rooms = []
     # Titulo del juego
-    room = setup_nivel("naranja")
+    room = setup_nivel("inicio")
     rooms.append(room)
     # Controles
-    room = setup_nivel("naranja")
+    room = setup_nivel("instrucciones")
     rooms.append(room)
     # Historia
     room = setup_nivel("historia")
@@ -65,7 +65,7 @@ def habitaciones():
     room = setup_nivel("nivel7")
     rooms.append(room)
     # Fin del juego
-    room = setup_nivel("naranja")
+    room = setup_nivel("final")
     rooms.append(room)
     # Combate
     room = setup_nivel("combate")
