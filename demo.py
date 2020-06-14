@@ -6,7 +6,6 @@ import random
 import Objeto_Entrenador
 import Objeto_Pokemon
 from tests import Combate, Optimizar
-from tests.Generar_Fakemon import nuevo_salvaje
 from tests.Optimizar import habitaciones, texturas_jugador
 
 WIDTH = 800
@@ -20,7 +19,7 @@ VIEWPORT_MARGIN_BOTTOM = 60
 VIEWPORT_RIGHT_MARGIN = 270
 VIEWPORT_LEFT_MARGIN = 270
 # MOVEMENT_SPEED = 3 es la velocidad normal
-MOVEMENT_SPEED = 4
+MOVEMENT_SPEED = 5
 
 
 # Juego
@@ -87,6 +86,7 @@ class MyGame(arcade.Window):
             "resources" + os.path.sep + "sound" + os.path.sep + "Choque de no poder pasar.mp3")
         self.sonido_Salto = arcade.load_sound("resources" + os.path.sep + "sound" + os.path.sep + "Salto.mp3")
 
+
     def setup(self):
         """ Set up the game and initialize the variables. """
         # Set up the player
@@ -104,14 +104,15 @@ class MyGame(arcade.Window):
         self.mensaje = ""
         self.mensaje_enemy = ""
         # Posición de inicio del jugador
-        self.player_sprite.center_x = 62
+        # 62 ,100
+        self.player_sprite.center_x = 100
         self.player_sprite.center_y = 100
 
         self.player_list.append(self.player_sprite)
 
         # Sistema de habitaciones
         self.top_rooom = 4
-        self.current_room = 0
+        self.current_room = 10
         self.rooms = habitaciones()
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.rooms[self.current_room].wall_list)
 
@@ -121,7 +122,7 @@ class MyGame(arcade.Window):
         fakemon1 = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 2000, 100, 100, path + os.path.sep + "Pyro.png")
         self.fakemon2 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10,
                                                path + os.path.sep + "Cablanta.png")
-        self.fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
+        self.fakemon3 = Objeto_Pokemon.Fakemon("Romeu", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + "")
         self.fakemon4 = Objeto_Pokemon.Fakemon("Sargrey", "lunar", 30, 20, 200, 10, 10,
                                                path + os.path.sep + "Sargrey.png")
 
@@ -146,6 +147,7 @@ class MyGame(arcade.Window):
         # Establecemos dos variables globales para el combate
         self.current_enemy = ""
         self.current_ally = self.jugador.lista_equipo[0]
+
 
     # Sistema para generar  texto :Esta funcion recibe el texto dentro de los sprites y dibuja en un cuadro
     def genera_texto(self, text):
@@ -187,54 +189,48 @@ class MyGame(arcade.Window):
 
         #Cuadros de texto cuando vences a un entrenador
         if(self.current_room == 4 and self.player_sprite.center_x ==393 and self.player_sprite.center_y==246.5):
-            self.genera_texto("victoria_trainer.png")
-            arcade.draw_text(self.trainer1.nombre,500,500,arcade.color.BLACK,12)
+            self.genera_texto("victoria_trainer1.png")
         elif(self.current_room == 5 and self.player_sprite.center_x ==479 and self.player_sprite.center_y==137.5):
-            self.genera_texto("victoria_trainer_fakemon.png")
-            arcade.draw_text(self.trainer2.nombre, 500, 500, arcade.color.BLACK, 12)
-            arcade.draw_text(self.fakemon2.nombre, 500, 500, arcade.color.BLACK, 12)
+            self.genera_texto("victoria_trainer_fakemon2.png")
         elif(self.current_room == 6 and self.player_sprite.center_x ==713 and self.player_sprite.center_y==457.5):
-            self.genera_texto("victoria_trainer.png")
-            arcade.draw_text(self.trainer3.nombre,500,500,arcade.color.BLACK,12)
+            self.genera_texto("victoria_trainer3.png")
         elif(self.current_room == 7 and self.player_sprite.center_x ==663 and self.player_sprite.center_y==278.5):
-            self.genera_texto("victoria_trainer_fakemon.png")
-            arcade.draw_text(self.trainer4.nombre, 500, 500, arcade.color.BLACK, 12)
-            arcade.draw_text(self.fakemon3.nombre, 500, 500, arcade.color.BLACK, 12)
+            self.genera_texto("victoria_trainer_fakemon4.png")
         elif(self.current_room == 8 and self.player_sprite.center_x ==527 and self.player_sprite.center_y==233.5):
-            self.genera_texto("victoria_trainer.png")
-            arcade.draw_text(self.trainer5.nombre,500,500,arcade.color.BLACK,12)
+            self.genera_texto("victoria_trainer5.png")
         elif(self.current_room == 9 and self.player_sprite.center_x ==631 and self.player_sprite.center_y==241.5):
-            self.genera_texto("victoria_trainer_fakemon.png")
-            arcade.draw_text(self.trainer6.nombre, 500, 500, arcade.color.BLACK, 12)
-            arcade.draw_text(self.fakemon4.nombre, 500, 500, arcade.color.BLACK, 12)
+            self.genera_texto("victoria_trainer_fakemon6.png")
         elif(self.current_room == 10 and self.player_sprite.center_x ==511 and self.player_sprite.center_y==233):
             self.genera_texto("victoria_ultimo.png")
 
         #Cuadro de texto para cuando no derrotaste al entrenador de la planta
         if(self.no_pasar):
             self.genera_texto("no_pasar.png")
+            self.no_pasar = False
 
         # Mapa de coordenadas utilizado para saber la dirección
         arcade.draw_text("Coordenada x:" + str(self.player_sprite.center_x), self.player_sprite.center_x + 10,
                          self.player_sprite.center_y, arcade.color.WHITE)
         arcade.draw_text("Coordenada y:" + str(self.player_sprite.center_y), self.player_sprite.center_x + 10,
                          self.player_sprite.center_y - 10, arcade.color.WHITE)
+
         #Sistema para generar mensajes de entrenadores
         if(self.mensaje_trainer):
+
             if(self.current_room == 4):
-                self.genera_texto("victoria_trainer.png")
+                self.genera_texto("trainer1.png")
             elif(self.current_room == 5):
-                self.genera_texto("cuadrositiocerrado.png")
+                self.genera_texto("trainer2.png")
             elif (self.current_room == 6):
-                self.genera_texto("victoria_trainer.png")
+                self.genera_texto("trainer3.png")
             elif (self.current_room == 7):
-                self.genera_texto("cuadrositiocerrado.png")
+                self.genera_texto("trainer4.png")
             elif (self.current_room == 8):
-                self.genera_texto("victoria_trainer.png")
+                self.genera_texto("trainer5.png")
             elif (self.current_room == 9):
-                self.genera_texto("cuadrositiocerrado.png")
+                self.genera_texto("trainer6.png")
             elif (self.current_room == 10):
-                self.genera_texto("cuadrositiocerrado.png")
+                self.genera_texto("trainer7.png")
             self.mensaje_trainer = False
 
         # Sistema de texto dinamico para combates fakemon
@@ -696,7 +692,7 @@ class MyGame(arcade.Window):
 
                 else:
                     self.contador_combate -= 60
-
+        
         #Sistema para evitar subir niveles si no ha derrotado al entrenador
         if(790<=self.player_sprite.center_x<=920 and 350<=self.player_sprite.center_y<=521 and 3<self.current_room<11):
             if(self.current_room == 4 and self.trainer1.no_derrotado):
@@ -724,7 +720,7 @@ class MyGame(arcade.Window):
                     self.player_sprite.center_y -=30
                     self.contador_mensaje = 180
                 else: self.contador_mensaje -=1
-
+        """
         # Sistema de vision para los entrenadores y genferar sus combate
         if self.current_room == 4 and 361 <= self.player_sprite.center_x <= 730 and 189.5 <= self.player_sprite.center_y <= 329.5 and self.trainer1.no_derrotado:
             self.is_salvaje = False
@@ -862,7 +858,7 @@ class MyGame(arcade.Window):
                 self.contador_mensaje -= 1
 
 
-        elif self.current_room == 10 and 557 <= self.player_sprite.center_x <= 735 and 104.5 <= self.player_sprite.center_y <= 254.5 and self.trainer7.no_derrotado:
+        elif self.current_room == 10 and 361 <= self.player_sprite.center_x <= 681 and 104.5 <= self.player_sprite.center_y <= 302 and self.trainer7.no_derrotado:
             self.is_salvaje = False
             print("encontrado")
             # Coords: 667/104.5
@@ -883,7 +879,7 @@ class MyGame(arcade.Window):
 
             else:
                 self.contador_mensaje -= 1
-            """
+
         # Sistema para regresar al pueblo con cuerda huida
         if self.cuerda_huida:
             self.jugador.inventario["Cuerda Huida"] -= 1
