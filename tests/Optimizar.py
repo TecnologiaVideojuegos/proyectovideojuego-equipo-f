@@ -37,6 +37,10 @@ def setup_nivel(nivel):
 
 
 def habitaciones():
+    """
+    Carga todas las habitaciones del juego
+    :return: lista de habitaciones
+    """
     rooms = []
     # Titulo del juego
     room = setup_nivel("inicio")
@@ -70,18 +74,20 @@ def habitaciones():
     # Combate
     room = setup_nivel("combate")
     rooms.append(room)
+
     return rooms
 
 
 def texturas_jugador():
+    """
+    Carga las distintas texturas del personaje principal
+    :return: listas con los diferentes sprites
+    """
     # Cargamos textura de sprite quieto
-    stand_right_textures = []
-    stand_right_textures.append(arcade.load_texture(
-        "resources" + os.path.sep + "sprites" + os.path.sep + "player" + os.path.sep + "Derecha" + os.path.sep + "Der0.png"))
+    stand_right_textures = [arcade.load_texture("resources" + os.path.sep + "sprites" + os.path.sep + "player" +
+                                                os.path.sep + "Derecha" + os.path.sep + "Der0.png")]
 
-    stand_left_textures = []
-    stand_left_textures.append(
-        arcade.load_texture("resources/sprites/player/Izquierda/Izq0.png"))
+    stand_left_textures = [arcade.load_texture("resources/sprites/player/Izquierda/Izq0.png")]
 
     # Cargamos las texturas para el movimiento derecho
     walk_right_textures = []
@@ -167,51 +173,73 @@ def texturas_jugador():
 
 
 def lista_entrenador(num):
-    # (self,nombre,tipo,nivel,exp_final,HP_MAX,ataque,defensa,imagen)
-    # + os.path.sep +
+    """
+    Añade a cada entrenador sus fakemons asignados
+    :return: devuelve la lista del equipo del entrenador
+    """
     lista_equipo = []
     path = "resources" + os.path.sep + "sprites" + os.path.sep + "fakemon" + os.path.sep + "enemy"
-    if (num == 1):
+
+    #Entrenador 1
+    if num == 1:
+        # Genera los fakemons
         fakemon = Objeto_Pokemon.Fakemon("Sarzul", "estelar", 30, 20, 200, 10, 10, path + os.path.sep + "Sarzul.png")
+        #Los añade al equipo
         lista_equipo.append(fakemon)
-    elif (num == 2):
+
+    elif num == 2:
+        # Genera los fakemons
         fakemon = Objeto_Pokemon.Fakemon("Pyro", "volcanico", 30, 20, 200, 10, 10, path + os.path.sep + "Pyro.png")
+        # Los añade al equipo
         lista_equipo.append(fakemon)
-    elif (num == 3):
+
+    elif num == 3:
+        # Genera los fakemons
         fakemon1 = Objeto_Pokemon.Fakemon("Oryp", "demonio", 30, 20, 200, 10, 10, path + os.path.sep + "Oryp.png")
         fakemon2 = Objeto_Pokemon.Fakemon("", "demonio", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        # Los añade al equipo
         lista_equipo.append(fakemon1)
         lista_equipo.append(fakemon2)
 
-    elif (num == 4):
+    elif num == 4:
+        # Genera los fakemons
         fakemon1 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
         fakemon2 = Objeto_Pokemon.Fakemon("", "cometa", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        # Los añade al equipo
         lista_equipo.append(fakemon1)
         lista_equipo.append(fakemon2)
 
-    elif (num == 5):
+    elif num == 5:
+        # Genera los fakemons
         fakemon1 = Objeto_Pokemon.Fakemon("", "cometa", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
         fakemon2 = Objeto_Pokemon.Fakemon("", "cometa", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
         fakemon3 = Objeto_Pokemon.Fakemon("", "lunar", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
+        # Los añade al equipo
         lista_equipo.append(fakemon1)
         lista_equipo.append(fakemon2)
         lista_equipo.append(fakemon3)
 
-    elif (num == 6):
+    elif num == 6:
+        # Genera los fakemons
         fakemon1 = Objeto_Pokemon.Fakemon("", "lunar", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
         fakemon2 = Objeto_Pokemon.Fakemon("Sargrey", "lunar", 30, 20, 200, 10, 10, path + os.path.sep + "Sargrey.png")
         fakemon3 = Objeto_Pokemon.Fakemon("Cablanta", "estelar", 30, 20, 200, 10, 10, path + os.path.sep + "Cablanta.png")
+        # Los añade al equipo
         lista_equipo.append(fakemon1)
         lista_equipo.append(fakemon2)
         lista_equipo.append(fakemon3)
 
-    elif (num == 7):
+    elif num == 7:
+        # Genera los fakemons
         fakemon1 = Objeto_Pokemon.Fakemon("Oryp", "demonio", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
         fakemon2 = Objeto_Pokemon.Fakemon("", "volcanico", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
         fakemon3 = Objeto_Pokemon.Fakemon("", "vacio", 30, 20, 200, 10, 10, path + os.path.sep + ".png")
         fakemon4 = Objeto_Pokemon.Fakemon("Sarzul", "estelar", 30, 20, 200, 10, 10, path + os.path.sep + "Sarzul.png")
+        # Los añade al equipo
         lista_equipo.append(fakemon1)
         lista_equipo.append(fakemon2)
         lista_equipo.append(fakemon3)
         lista_equipo.append(fakemon4)
+
+
     return lista_equipo
