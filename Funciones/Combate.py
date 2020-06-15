@@ -1,4 +1,3 @@
-
 def atacar(atacante, defensor):
     """
     Función para calcular la vida del defensor al atacarle

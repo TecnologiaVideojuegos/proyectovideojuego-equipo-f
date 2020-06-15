@@ -800,7 +800,7 @@ class MyGame(arcade.Window):
                     self.contador_combate = 120
 
                     # Si ese numero es mayor o igual a 450 se inicia un combate
-                    if empieza_combate >= 450:
+                    if empieza_combate >= 475:
                         # Se limpian los mensajes
                         self.mensaje_enemy = ""
                         self.mensaje = ""

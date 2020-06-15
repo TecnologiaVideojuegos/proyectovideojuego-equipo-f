@@ -1,7 +1,0 @@
-       #BUGS#
-
-1)Al morir no aparece el mensaje correspondiente.
-2)Al morir y volver al combate no aparece ningun sprite ni textos
-3)La primera columna a la derecha de la escalera inicial del primer nivel no tiene hitbox
-
-4) En el sistema para evitar que los jugadores no suban de nivel si mantienen presionado w en cierta posición pueden pasar
