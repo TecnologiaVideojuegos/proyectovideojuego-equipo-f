@@ -205,7 +205,7 @@ def lista_entrenador(num):
     elif num == 4:
         # Genera los fakemons
         fakemon1 = Objeto_Pokemon.Fakemon("Romeu", "vacio",22,0,172,97,47, path + os.path.sep + "Romeu.png")
-        fakemon2 = Objeto_Pokemon.Fakemon("Vacivus", "cometa", 24,0,198,90,51, path + os.path.sep + "Vacivus.png")
+        fakemon2 = Objeto_Pokemon.Fakemon("Vacivus", "vacio", 24,0,198,90,51, path + os.path.sep + "Vacivus.png")
         # Los añade al equipo
         lista_equipo.append(fakemon1)
         lista_equipo.append(fakemon2)
