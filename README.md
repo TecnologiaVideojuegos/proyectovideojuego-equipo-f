@@ -1,4 +1,4 @@
-****Fakemon y la torre de los deseos****
+**FAKEMON Y LA TORRE DE LOS DESEOS**
 
 **Proyecto de videojuegos del equipo F**
 >Este equipo esta formado por:
