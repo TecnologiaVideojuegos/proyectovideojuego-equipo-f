@@ -222,7 +222,7 @@ def lista_entrenador(num):
 
     elif num == 6:
         # Genera los fakemons
-        fakemon1 = Objeto_Pokemon.Fakemon("Raziel", "lunar",34,0,233,133,80, path + os.path.sep + "Raziel.png")
+        fakemon1 = Objeto_Pokemon.Fakemon("Cablanta Shiny", "lunar",34,0,233,133,80, path + os.path.sep + "Cablanta Shiny.png")
         fakemon2 = Objeto_Pokemon.Fakemon("Sargrey", "lunar",35,0,232,129,73, path + os.path.sep + "Sargrey.png")
         fakemon3 = Objeto_Pokemon.Fakemon("Cablanta", "estelar",36,0,232,126,76, path + os.path.sep + "Cablanta.png")
         # Los añade al equipo

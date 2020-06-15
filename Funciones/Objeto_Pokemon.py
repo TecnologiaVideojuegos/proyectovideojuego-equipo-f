@@ -42,9 +42,9 @@ class Fakemon:
         self.contador_exp = 0
         #Planteamiento principal de subida de estadisticas(1-10)
         if self.nivel<=10:
-            self.HP_MAX *= 1.205
-            self.ataque *= 1.23
-            self.defensa *= 1.27
+            self.HP_MAX = int(self.HP_MAX*1.205)
+            self.ataque = int(self.ataque*1.23)
+            self.defensa = int(self.defensa*1.27)
             self.HP = self.HP_MAX
             self.exp_final += 10
         #A partir de lvl 10 la suma de estadisticas es distintas(10-40)

@@ -3,14 +3,10 @@ import os
 import arcade
 import random
 # Librerias internas
-<<<<<<< HEAD:Fakemon y la torre de los deseos.py
-from Funciones import Combate, Optimizar, Objeto_Pokemon, Objeto_Entrenador
+
 from Funciones.Generar_Fakemon import nuevo_salvaje
+from Funciones import Combate, Optimizar, Objeto_Pokemon, Objeto_Entrenador, Generar_Fakemon
 from Funciones.Optimizar import habitaciones, texturas_jugador
-=======
-from tests import Combate, Optimizar, Objeto_Pokemon, Objeto_Entrenador, Generar_Fakemon
-from tests.Optimizar import habitaciones, texturas_jugador
->>>>>>> 956a76b47019ab29c5c96e59d47f5342ed01c31b:demo.py
 
 """
 Variables globales
@@ -112,10 +108,7 @@ class MyGame(arcade.Window):
 
 
         # Posición de inicio del jugador
-<<<<<<< HEAD:Fakemon y la torre de los deseos.py
 
-=======
->>>>>>> 956a76b47019ab29c5c96e59d47f5342ed01c31b:demo.py
         self.player_sprite.center_x = 73
         self.player_sprite.center_y = 86.5
 
@@ -240,18 +233,6 @@ class MyGame(arcade.Window):
             self.genera_texto("no_pasar.png")
             self.no_pasar = False
 
-<<<<<<< HEAD:Fakemon y la torre de los deseos.py
-        #Sistema para generar mensajes de entrenadores
-        if(self.mensaje_trainer):
-=======
-
-        # Mapa de coordenadas utilizado para saber la dirección
-        arcade.draw_text("Coordenada x:" + str(self.player_sprite.center_x), self.player_sprite.center_x + 10,
-                         self.player_sprite.center_y, arcade.color.WHITE)
-        arcade.draw_text("Coordenada y:" + str(self.player_sprite.center_y), self.player_sprite.center_x + 10,
-                         self.player_sprite.center_y - 10, arcade.color.WHITE)
-
->>>>>>> 956a76b47019ab29c5c96e59d47f5342ed01c31b:demo.py
 
         # Sistema para generar mensajes de entrenadores
         if self.mensaje_trainer:
@@ -807,10 +788,6 @@ class MyGame(arcade.Window):
             self.player_sprite.center_x = 137
             self.player_sprite.center_y = 438.5
 
-<<<<<<< HEAD:Fakemon y la torre de los deseos.py
-=======
-
->>>>>>> 956a76b47019ab29c5c96e59d47f5342ed01c31b:demo.py
         # Sistema para generar fakemon salvajes dependiendo del piso donde se encuentre
         if 3 < self.current_room < 11:
             # Cuando el jugador se mueve se activa un condador
@@ -867,14 +844,9 @@ class MyGame(arcade.Window):
                     self.player_sprite.center_x -= 30
                     self.player_sprite.center_y -= 30
                     self.contador_mensaje = 180
-<<<<<<< HEAD:Fakemon y la torre de los deseos.py
+
                 else: self.contador_mensaje -=1
 
-=======
-                else: self.contador_mensaje -= 1
-        
-        
->>>>>>> 956a76b47019ab29c5c96e59d47f5342ed01c31b:demo.py
         # Sistema de vision para los entrenadores y genferar sus combate
         """
         Se crea un área de visión para los entrenadores, cuando el jugador entra en esta área se detiene y se muestra el
