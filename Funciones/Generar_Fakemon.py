@@ -63,7 +63,7 @@ def subir_estadisticas(nivel, HP_MAX, ataque, defensa):
             defensa *= 1.27
         for i in range(1, nivel - 10):
             ataque = ataque + 3  # a partir de nivel 10, las estadisticas suben valores fijos
-            vida = vida + 5
+            HP_MAX = HP_MAX + 5
             defensa = defensa + 2
 
 
