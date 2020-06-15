@@ -1,7 +1,7 @@
-**Fakemon y la torre de los deseos**
+****Fakemon y la torre de los deseos****
 
 **Proyecto de videojuegos del equipo F**
-Este equipo esta formado por:
+>Este equipo esta formado por:
 
   -**Iñaki Cezón Ortega** ----------> Jefe de Equipo 
 
